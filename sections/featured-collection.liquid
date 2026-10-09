@@ -61,10 +61,15 @@
     border-radius: 3px;
   }
 
+  .product-image {
+    display: block; /* needed because the image wrapper is now an <a> tag */
+  }
+
   .product-image img {
     display: block;
     width: 100%;
-    aspect-ratio: 4 / 5;
+    max-height: 380px;
+    height: 100%;
     object-fit: cover;
     transition: transform 0.4s ease;
   }
@@ -148,7 +153,19 @@
 {% schema %}
 {
   "name": "Featured-collection",
-  "settings": [],
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Featured-collection"
+    },
+    {
+      "type": "collection",
+      "id": "featured_collection",
+      "label": "Collection"
+    }
+  ],
   "presets": [
     {
       "name": "Featured-collections"
@@ -156,15 +173,36 @@
   ]
 }
 {% endschema %}
-
+{%- assign featured = section.settings.featured_collection -%}
 <section class="featured">
   <div class="section-heading">
     <div class="eyebrow">CURATED FOR COFFEE LOVERS</div>
-    <h2>Our Featured Collection</h2>
+    <h2>{{ section.settings.title }}</h2>
     <p>Thoughtfully sourced beans. Beautifully brewed moments.</p>
   </div>
 
   <div class="product-grid">
+    {%- if featured != blank and featured.products.size > 0 -%}
+      {%- for product in featured.products limit: 8 -%}
+        <article class="product-card">
+          <a href="{{ product.url }}" class="product-image">
+            <span class="tag">BESTSELLER</span>
+            {%- if product.featured_image -%}
+              {{ product.featured_image | image_url: width: 600 | image_tag: alt: product.title, loading: 'lazy' }}
+            {%- else -%}
+              {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </a>
+          <div class="product-info">
+            <h3>{{ product.title }}</h3>
+            <p>Smooth · Chocolate · Caramel</p>
+            <div class="price">{{ product.price | money }}</div>
+          </div>
+        </article>
+      {%- endfor -%}
+    {%- else -%}
+      <p>Please select a collection that has products.</p>
+    {%- endif -%}
     <article class="product-card">
       <div class="product-image">
         <span class="tag">BESTSELLER</span>
