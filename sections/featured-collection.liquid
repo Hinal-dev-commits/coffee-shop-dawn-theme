@@ -1,0 +1,228 @@
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    background: #fff;
+    color: #35271f;
+  }
+
+  .featured {
+    padding: 75px 7%;
+    background: #f8f5ef;
+  }
+
+  .section-heading {
+    text-align: center;
+    margin-bottom: 42px;
+  }
+
+  .eyebrow {
+    color: #94745a;
+    font-size: 11px;
+    letter-spacing: 3px;
+    margin-bottom: 14px;
+  }
+
+  .section-heading h2 {
+    font-family: Georgia, serif;
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 400;
+    margin-bottom: 12px;
+  }
+
+  .section-heading p {
+    color: #81766b;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+    max-width: 1250px;
+    margin: auto;
+  }
+
+  .product-card {
+    min-width: 0;
+  }
+
+  .product-image {
+    position: relative;
+    overflow: hidden;
+    background: #eee8de;
+    margin-bottom: 17px;
+    border-radius: 3px;
+  }
+
+  .product-image img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .product-card:hover .product-image img {
+    transform: scale(1.04);
+  }
+
+  .tag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #fffdf8;
+    color: #5a4535;
+    font-size: 10px;
+    padding: 7px 10px;
+    letter-spacing: 1px;
+  }
+
+  .product-info h3 {
+    font-family: Georgia, serif;
+    font-size: 19px;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+
+  .product-info p {
+    color: #82766b;
+    font-size: 12px;
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+
+  .price {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .collection-link {
+    display: table;
+    margin: 42px auto 0;
+    padding: 14px 25px;
+    background: #4b382c;
+    color: white;
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    transition: background 0.3s;
+  }
+
+  .collection-link:hover {
+    background: #725641;
+  }
+
+  @media (max-width: 900px) {
+    .product-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px 18px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .featured {
+      padding: 50px 5%;
+    }
+
+    .product-grid {
+      gap: 25px 12px;
+    }
+
+    .product-info h3 {
+      font-size: 17px;
+    }
+
+    .section-heading {
+      margin-bottom: 30px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Featured-collection",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Featured-collections"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="featured">
+  <div class="section-heading">
+    <div class="eyebrow">CURATED FOR COFFEE LOVERS</div>
+    <h2>Our Featured Collection</h2>
+    <p>Thoughtfully sourced beans. Beautifully brewed moments.</p>
+  </div>
+
+  <div class="product-grid">
+    <article class="product-card">
+      <div class="product-image">
+        <span class="tag">BESTSELLER</span>
+        <img
+          src="https://images.unsplash.com/photo-1559525839-b184a4d698c7?auto=format&fit=crop&w=700&q=80"
+          alt="House blend coffee"
+        >
+      </div>
+      <div class="product-info">
+        <h3>House Blend</h3>
+        <p>Smooth · Chocolate · Caramel</p>
+        <div class="price">$18.00</div>
+      </div>
+    </article>
+
+    <article class="product-card">
+      <div class="product-image">
+        <img
+          src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&w=700&q=80"
+          alt="Dark roast coffee"
+        >
+      </div>
+      <div class="product-info">
+        <h3>Dark Roast</h3>
+        <p>Bold · Rich · Smoky</p>
+        <div class="price">$21.00</div>
+      </div>
+    </article>
+
+    <article class="product-card">
+      <div class="product-image">
+        <span class="tag">NEW</span>
+        <img
+          src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=700&q=80"
+          alt="Freshly roasted coffee beans"
+        >
+      </div>
+      <div class="product-info">
+        <h3>Morning Light</h3>
+        <p>Bright · Citrus · Floral</p>
+        <div class="price">$19.00</div>
+      </div>
+    </article>
+
+    <article class="product-card">
+      <div class="product-image">
+        <img
+          src="https://images.unsplash.com/photo-1511537190424-bbbab87ac5eb?auto=format&fit=crop&w=700&q=80"
+          alt="Espresso coffee"
+        >
+      </div>
+      <div class="product-info">
+        <h3>Espresso Blend</h3>
+        <p>Balanced · Nutty · Sweet</p>
+        <div class="price">$20.00</div>
+      </div>
+    </article>
+  </div>
+
+  <a href="/collections/coffee" class="collection-link"> SHOP ALL COFFEE &rarr; </a>
+</section>

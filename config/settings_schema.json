@@ -1,0 +1,20 @@
+[
+    {
+    "name": "theme_info",
+    "theme_name": "Coffee-shop",
+    "theme_version": "1.0.0",
+    "theme_author": "Hinal",
+    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+    "theme_support_url": "https://support.shopify.com/"
+  },
+  {
+    "name": "store setting",
+    "settings": [
+        {
+            "type": "image_picker",
+            "label": "logo",
+            "id": "logo"
+        }
+    ]
+  }
+]
