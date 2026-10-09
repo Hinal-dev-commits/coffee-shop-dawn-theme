@@ -1,0 +1,110 @@
+{% comment %}
+  <style>
+    .cart-quantity {
+      display: inline-flex;
+      align-items: center;
+      width: 118px;
+      height: 38px;
+      border: 1px solid #d9cfc3;
+      border-radius: 6px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .cart-quantity .qty-btn {
+      width: 36px;
+      height: 100%;
+      padding: 0;
+      border: none;
+      background: transparent;
+      color: #49372b;
+      font-size: 18px;
+      font-weight: 400;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .cart-quantity .qty-btn:hover {
+      background: #f5efe7;
+    }
+{% endcomment %}
+<style>
+  .cart-quantity input[type='number'] {
+    width: 46px;
+    height: 100%;
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #49372b;
+    font-family: inherit;
+    font-size: 14px;
+    text-align: center;
+    appearance: textfield;
+    -moz-appearance: textfield;
+  }
+
+  .cart-quantity input[type='number']::-webkit-inner-spin-button,
+  .cart-quantity input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .cart-quantity:focus-within {
+    border-color: #8a6a50;
+    box-shadow: 0 0 0 2px rgba(138, 106, 80, 0.12);
+  }
+</style>
+
+<div class="cart-quantity">
+  <button type="button" class="qty-btn" aria-label="Decrease quantity">−</button>
+
+  <input
+    type="number"
+    name="quantity"
+    value="1"
+    min="1"
+    aria-label="Quantity"
+    id="product-quantity"
+  >
+
+  <button type="button" class="qty-btn" aria-label="Increase quantity">+</button>
+</div>
+
+<script>
+  document.querySelectorAll('.cart-quantity').forEach((quantityBox) => {
+    const input = quantityBox.querySelector('input[name="quantity"]');
+    const decreaseBtn = quantityBox.querySelector('.qty-btn:first-child');
+    const increaseBtn = quantityBox.querySelector('.qty-btn:last-child');
+
+    const MIN_QTY = 1;
+    const MAX_QTY = 6;
+
+    decreaseBtn.addEventListener('click', () => {
+      const qty = parseInt(input.value, 10) || MIN_QTY;
+      input.value = Math.max(MIN_QTY, qty - 1);
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+
+    increaseBtn.addEventListener('click', () => {
+      const qty = parseInt(input.value, 10) || MIN_QTY;
+
+      if (qty < MAX_QTY) {
+        input.value = qty + 1;
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    });
+
+    input.addEventListener('change', () => {
+      let qty = parseInt(input.value, 10) || MIN_QTY;
+      qty = Math.max(MIN_QTY, Math.min(MAX_QTY, qty));
+      input.value = qty;
+    });
+
+    input.addEventListener('input', () => {
+      if (Number(input.value) > MAX_QTY) {
+        input.value = MAX_QTY;
+      }
+    });
+  });
+</script>

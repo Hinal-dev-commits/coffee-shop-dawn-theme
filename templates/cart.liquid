@@ -10,7 +10,7 @@
     {% if cart.item_count > 0 %}
       <section class="cart-items" id="cart-items">
         {% for item in cart.items %}
-          <article class="cart-item" data-price="{{ item.final_price }}" data-key="{{ item.key }}">
+          <article class="cart-item" data-price="{{ item.final_price }}" data-key="{{ item.key }}" data-cart-item-key="{{ item.key | escape }}">
             <img
               src="{{item.image | image_url: width: 300}}"
               alt="{{ item.title }}"
@@ -32,7 +32,6 @@
               <span class="item-total">{{ item.final_line_price | money }}</span>
               <button
                 class="remove-item"
-                onclick="removeItem(this)"
               >
                 Remove
               </button>
@@ -42,7 +41,6 @@
       </section>
     {% else %}
       <p class="cart-empty">Your cart is empty.</p>
-      <a href="{{ routes.all_products_collection_url }}">Continue shopping</a>
     {% endif %}
     <!-- ORDER SUMMARY -->
     <aside class="order-summary">
@@ -50,7 +48,7 @@
 
       <div class="summary-row">
         <span>Subtotal</span>
-        <strong id="subtotal">{{cart.total_price | money_with_currency}}</strong>
+        <strong id="subtotal">{{ cart.total_price | money_with_currency }}</strong>
       </div>
 
       <div class="summary-row">
@@ -62,16 +60,17 @@
 
       <div class="summary-row summary-total">
         <span>Estimated total</span>
-        <strong id="total">{{cart.total_price | money_with_currency}}</strong>
+        <strong id="total">{{ cart.total_price | money_with_currency }}</strong>
       </div>
 
       <p class="shipping-note">Shipping and applicable taxes are calculated at checkout.</p>
 
       <a href="/checkout" class="checkout-btn"> PROCEED TO CHECKOUT → </a>
 
-      <a href="/collections/coffee" class="continue-shopping"> Continue Shopping </a>
+      <a href="" class="continue-shopping"> Continue Shopping </a>
 
       <div class="cart-trust">Secure checkout · Freshly roasted coffee</div>
     </aside>
   </div>
 </main>
+<script src="{{ 'cart.js' | asset_url }}" defer></script>

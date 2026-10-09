@@ -84,13 +84,12 @@
 
     <p class="option-label">Quantity</p>
 
-    <div class="quantity">
-      <button onclick="updateQuantity(-1)">−</button>
-      <span id="quantity">1</span>
-      <button onclick="updateQuantity(1)">+</button>
-    </div>
     {% form 'product', product %}
+      <div class="quantity">
+        {% render 'quantity' %}
+      </div>
       <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
       <button class="add-to-cart">ADD TO CART</button>
     {% endform %}
 
