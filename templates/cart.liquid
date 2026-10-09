@@ -1,0 +1,77 @@
+{{ 'cart.css' | asset_url | stylesheet_tag }}
+<main class="cart-page">
+  <div class="cart-heading">
+    <p>YOUR SELECTION</p>
+    <h1>Your Shopping Cart</h1>
+  </div>
+
+  <div class="cart-layout" id="cart-layout">
+    <!-- CART PRODUCTS -->
+    {% if cart.item_count > 0 %}
+      <section class="cart-items" id="cart-items">
+        {% for item in cart.items %}
+          <article class="cart-item" data-price="{{ item.final_price }}" data-key="{{ item.key }}">
+            <img
+              src="{{item.image | image_url: width: 300}}"
+              alt="{{ item.title }}"
+            >
+
+            <div class="item-info">
+              <h2>{{ item.title }}</h2>
+              <p class="variant">{{ item.variant.title }}</p>
+              <p class="price">{{ item.final_price | money_with_currency }}</p>
+
+              <div class="quantity">
+                <button onclick="changeQuantity(this, -1)">−</button>
+                <span>{{ item.quantity }}</span>
+                <button onclick="changeQuantity(this, 1)">+</button>
+              </div>
+            </div>
+
+            <div class="item-actions">
+              <span class="item-total">{{ item.final_line_price | money }}</span>
+              <button
+                class="remove-item"
+                onclick="removeItem(this)"
+              >
+                Remove
+              </button>
+            </div>
+          </article>
+        {% endfor %}
+      </section>
+    {% else %}
+      <p class="cart-empty">Your cart is empty.</p>
+      <a href="{{ routes.all_products_collection_url }}">Continue shopping</a>
+    {% endif %}
+    <!-- ORDER SUMMARY -->
+    <aside class="order-summary">
+      <h2>Order Summary</h2>
+
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <strong id="subtotal">{{cart.total_price | money_with_currency}}</strong>
+      </div>
+
+      <div class="summary-row">
+        <span>Shipping</span>
+        <strong id="shipping">Calculated at checkout</strong>
+      </div>
+
+      <hr class="summary-divider">
+
+      <div class="summary-row summary-total">
+        <span>Estimated total</span>
+        <strong id="total">{{cart.total_price | money_with_currency}}</strong>
+      </div>
+
+      <p class="shipping-note">Shipping and applicable taxes are calculated at checkout.</p>
+
+      <a href="/checkout" class="checkout-btn"> PROCEED TO CHECKOUT → </a>
+
+      <a href="/collections/coffee" class="continue-shopping"> Continue Shopping </a>
+
+      <div class="cart-trust">Secure checkout · Freshly roasted coffee</div>
+    </aside>
+  </div>
+</main>

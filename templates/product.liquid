@@ -1,0 +1,126 @@
+<h1>{{ product.title }}</h1>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+{{ 'product.css' | asset_url | stylesheet_tag }}
+
+<main class="product-page">
+  <!-- LEFT: IMAGE GALLERY -->
+
+  {% comment %}
+    <section class="gallery">
+      <div class="thumbnails">
+        {%- for media in product.media -%}
+          <img
+            class="active"
+            src="{{ media.preview_image | image_url: width: 200 }}"
+            alt="Coffee beans"
+          >
+        {%- endfor -%}
+      </div>
+
+      <img
+        id="main-image"
+        class="main-image"
+        src="{{ product.featured_image | image_url: width: 500 }}"
+        alt="House Blend coffee"
+      >
+    </section>
+  {% endcomment %}
+
+  <section class="gallery" id="gallery-{{ product.id }}">
+    <div class="swiper thumbs-swiper">
+      <div class="swiper-wrapper">
+        {%- for media in product.media -%}
+          {%- assign media_alt = media.alt | default: product.title | escape -%}
+          <div class="swiper-slide">
+            <img
+              src="{{ media.preview_image | image_url: width: 200 }}"
+              alt="{{ media_alt }}"
+              loading="lazy"
+            >
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <div class="swiper main-swiper">
+      <div class="swiper-wrapper">
+        {%- for media in product.media -%}
+          {%- assign media_alt = media.alt | default: product.title | escape -%}
+          <div class="swiper-slide">
+            <img
+              src="{{ media.preview_image | image_url: width: 800 }}"
+              alt="{{ media_alt }}"
+              loading="lazy"
+            >
+          </div>
+        {%- endfor -%}
+      </div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+  </section>
+
+  <!-- RIGHT: PRODUCT DETAILS -->
+  <section class="product-info">
+    <p class="category">SPECIALTY COFFEE</p>
+
+    <h1>{{ product.title }}</h1>
+
+    <p class="price">{{ product.price | money_with_currency }}</p>
+
+    <div class="rating">★★★★★ <span>4.8 (124 reviews)</span></div>
+
+    <p class="description">
+      {{ product.description }}
+    </p>
+
+    <p class="option-label">Grind Size</p>
+
+    <div class="grind-options">
+      <button class="selected" onclick="selectGrind(this)">Whole Bean</button>
+      <button onclick="selectGrind(this)">Ground</button>
+      <button onclick="selectGrind(this)">French Press</button>
+    </div>
+
+    <p class="option-label">Quantity</p>
+
+    <div class="quantity">
+      <button onclick="updateQuantity(-1)">−</button>
+      <span id="quantity">1</span>
+      <button onclick="updateQuantity(1)">+</button>
+    </div>
+    {% form 'product', product %}
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+      <button class="add-to-cart">ADD TO CART</button>
+    {% endform %}
+
+    <div class="benefits">
+      <div>
+        <strong>♧ Organic Beans</strong>
+        Carefully sourced
+      </div>
+      <div>
+        <strong>♧ Freshly Roasted</strong>
+        Packed with care
+      </div>
+      <div>
+        <strong>♧ Secure Checkout</strong>
+        Shop with confidence
+      </div>
+    </div>
+
+    <details class="details">
+      <summary>Product Details</summary>
+      <p>
+        Roast: Medium<br>
+        Tasting notes: Chocolate, caramel, nuts<br>
+        Origin: Update with your coffee's origin<br>
+        Weight: 340 g<br>
+        Storage: Keep in a cool, dry place.
+      </p>
+    </details>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="{{ 'product.js' | asset_url }}" defer></script>
