@@ -1,0 +1,191 @@
+  /* Navbar */
+  .coffee-navbar {
+      width: 100%;
+      background: #fbf8f3;
+      border-bottom: 1px solid #e8dfd4;
+      position: relative;
+      z-index: 100;
+  }
+
+  .navbar-container {
+      max-width: 1440px;
+      min-height: 82px;
+      margin: 0 auto;
+      padding: 0 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+  }
+
+  /* Logo */
+  .coffee-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: #4b3427;
+      text-decoration: none;
+      flex-shrink: 0;
+  }
+
+  .logo-icon {
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #b99b7c;
+      border-radius: 50%;
+      font-size: 21px;
+      color: #8a6548;
+  }
+
+  .logo-text {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: 1.8px;
+      white-space: nowrap;
+  }
+
+  /* Menu */
+  .navbar-menu {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 36px;
+  }
+
+  .nav-link {
+      position: relative;
+      padding: 8px 0;
+      color: #5f5044;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.3px;
+      transition: color 0.2s ease;
+  }
+
+  .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 1px;
+      width: 0;
+      height: 1px;
+      background: #8a6548;
+      transition: width 0.25s ease;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+      color: #4b3427;
+  }
+
+  .nav-link:hover::after,
+  .nav-link.active::after {
+      width: 100%;
+  }
+
+  /* Cart */
+  .navbar-cart {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      color: #4b3427;
+      text-decoration: none;
+      flex-shrink: 0;
+      transition: color 0.2s ease;
+  }
+
+  .navbar-cart:hover {
+      color: #9a7153;
+  }
+
+  .cart-badge {
+      position: absolute;
+      top: 1px;
+      right: 0;
+      min-width: 17px;
+      height: 17px;
+      padding: 0 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: #4b3427;
+      color: #fff;
+      font-size: 10px;
+      line-height: 1;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+      .navbar-container {
+          min-height: 72px;
+          padding: 0 20px;
+          gap: 14px;
+      }
+
+      .logo-text {
+          font-size: 16px;
+          letter-spacing: 1px;
+      }
+
+      .logo-icon {
+          width: 30px;
+          height: 30px;
+      }
+
+      .navbar-menu {
+          gap: 16px;
+      }
+
+      .nav-link {
+          font-size: 12px;
+      }
+  }
+
+  @media (max-width: 520px) {
+      .navbar-container {
+          min-height: 68px;
+          padding: 0 16px;
+          flex-wrap: wrap;
+          gap: 0;
+      }
+
+      .coffee-logo {
+          margin-right: auto;
+      }
+
+      .navbar-menu {
+          order: 3;
+          width: 100%;
+          justify-content: center;
+          gap: 28px;
+          padding: 0 0 13px;
+      }
+
+      .nav-link {
+          font-size: 12px;
+      }
+
+      .navbar-cart {
+          width: 38px;
+          height: 38px;
+      }
+  }
+
+  @media (max-width: 360px) {
+      .logo-text {
+          font-size: 14px;
+      }
+
+      .navbar-menu {
+          gap: 19px;
+      }
+  }

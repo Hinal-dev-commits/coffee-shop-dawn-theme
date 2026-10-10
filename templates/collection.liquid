@@ -1,0 +1,99 @@
+{{ 'collection.css' | asset_url | stylesheet_tag }}
+
+<section class="collection-page">
+  <!-- Collection Header -->
+  <div class="collection-header">
+    <p class="collection-eyebrow">FRESHLY ROASTED · CAREFULLY SOURCED</p>
+    <h1>{{ collection.title | default: 'Our Coffee Collection' }}</h1>
+    <p class="collection-description">
+      {%- if collection.description != blank -%}
+        {{ collection.description | strip_html | truncate: 160 }}
+      {%- else -%}
+        Discover exceptional coffee, thoughtfully selected for every moment of your day.
+      {%- endif -%}
+    </p>
+  </div>
+
+  <!-- Collection Categories -->
+  <div class="collection-categories">
+    <a
+      href="{{ routes.all_products_collection_url }}"
+      class="category{% if collection.handle == 'all' %} active{% endif %}"
+    >
+      All
+    </a>
+    {%- for category in collections -%}
+      <a
+        href="{{ category.url }}"
+        class="category{% if category.handle == collection.handle %} active{% endif %}"
+      >
+        {{- category.title -}}
+      </a>
+    {%- endfor -%}
+  </div>
+
+  {%- paginate collection.products by 12 -%}
+    <!-- Collection Toolbar -->
+    <div class="collection-toolbar">
+      <p>Showing <strong>{{ collection.products.size }}</strong> of <strong>{{ collection.products_count }}</strong> products</p>
+
+      {%- assign current_sort = collection.sort_by | default: collection.default_sort_by -%}
+      <select
+        aria-label="Sort products"
+        onchange="window.location.href = '{{ collection.url }}?sort_by=' + this.value"
+      >
+        <option value="manual" {% if current_sort == 'manual' %}selected{% endif %}>Featured</option>
+        <option value="price-ascending" {% if current_sort == 'price-ascending' %}selected{% endif %}>Price: Low to High</option>
+        <option value="price-descending" {% if current_sort == 'price-descending' %}selected{% endif %}>Price: High to Low</option>
+        <option value="best-selling" {% if current_sort == 'best-selling' %}selected{% endif %}>Best Selling</option>
+        <option value="created-descending" {% if current_sort == 'created-descending' %}selected{% endif %}>Newest</option>
+      </select>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="collection-grid">
+      {%- for collection_product in collection.products -%}
+        <article class="product-card">
+          <a href="{{ collection_product.url }}" class="product-image">
+            {%- if collection_product.compare_at_price > collection_product.price -%}
+              <span class="product-label">SALE</span>
+            {%- endif -%}
+            {%- if collection_product.featured_image -%}
+              <img
+                src="{{ collection_product.featured_image | image_url: width: 300 }}"
+                alt="{{ collection_product.featured_image.alt | default: collection_product.title | escape }}"
+                width="300"
+                height="{{ 300 | divided_by: collection_product.featured_image.aspect_ratio | round }}"
+                loading="lazy"
+              >
+            {%- else -%}
+              {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </a>
+          <div class="product-info">
+            <p class="product-type">{{ collection_product.type | default: 'WHOLE BEAN COFFEE' | upcase }}</p>
+            <h2>
+              <a href="{{ collection_product.url }}">{{ collection_product.title }}</a>
+            </h2>
+            <p class="product-description">
+              {{ collection_product.description | strip_html | truncate: 90 }}
+            </p>
+            <div class="product-bottom">
+              <span class="product-price">{{ collection_product.price | money_with_currency }}</span>
+              <a href="{{ collection_product.url }}" class="product-button">View Product</a>
+            </div>
+          </div>
+        </article>
+      {%- else -%}
+        <p>No products found in this collection.</p>
+      {%- endfor -%}
+    </div>
+
+    <!-- Pagination -->
+    {%- if paginate.pages > 1 -%}
+      <div class="collection-pagination">
+        {{ paginate | default_pagination }}
+      </div>
+    {%- endif -%}
+  {%- endpaginate -%}
+</section>

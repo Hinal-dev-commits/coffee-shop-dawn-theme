@@ -18,7 +18,10 @@
     "featured_collection_KmwWKK": {
       "type": "featured-collection",
       "name": "Featured-collections",
-      "settings": {}
+      "settings": {
+        "title": "Featured-collection",
+        "featured_collection": "frontpage"
+      }
     }
   },
   "order": [
