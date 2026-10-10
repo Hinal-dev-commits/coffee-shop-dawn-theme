@@ -16,5 +16,15 @@
             "id": "logo"
         }
     ]
+  },
+  {
+    "name": "Header",
+    "settings": [
+        {
+            "type": "link_list",
+            "label": "header",
+            "id": "header_nav"
+        }
+    ]
   }
 ]
