@@ -1,0 +1,123 @@
+{%- comment -%}
+  snippets/cart-drawer.liquid
+  Params (passed from sections/cart-drawer.liquid): label, heading, note
+  No css/js links here: the section loads them.
+{%- endcomment -%}
+{%- assign max_qty = 6 -%}
+<!-- Cart drawer overlay -->
+<div class="cart-overlay" id="cartOverlay"></div>
+
+<!-- Cart drawer -->
+<div class="cart-drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Cart">
+  <div class="cart-header">
+    <div>
+      <span class="cart-label">{{ label | default: 'YOUR SELECTION' }}</span>
+      <h2>
+        {{ heading | default: 'Your Cart' }}
+        <span class="cart-count">({{ cart.item_count }})</span>
+      </h2>
+    </div>
+
+    <button class="cart-close" type="button" aria-label="Close cart">&times;</button>
+  </div>
+
+  {%- if cart.item_count == 0 -%}
+    <div class="cart-items cart-empty">
+      <p>Your cart is empty.</p>
+      <a href="/collections/all" class="cart-continue">Continue Shopping</a>
+    </div>
+  {%- else -%}
+    <div class="cart-items">
+      {%- for item in cart.items -%}
+        <div class="cart-item">
+          <div class="cart-item-image">
+            {%- if item.image -%}
+              <img
+                src="{{ item.image | image_url: width: 300 }}"
+                alt="{{ item.image.alt | default: item.product.title | escape }}"
+                loading="lazy"
+                width="300"
+                height="{{ 300 | divided_by: item.image.aspect_ratio | round }}"
+              >
+            {%- endif -%}
+          </div>
+
+          <div class="cart-item-details">
+            <h3>
+              <a href="{{ item.url }}">{{ item.product.title }}</a>
+            </h3>
+
+            {%- unless item.product.has_only_default_variant -%}
+              <p class="cart-variant">{{ item.variant.title }}</p>
+            {%- endunless -%}
+
+            <p class="cart-price">{{ item.final_price | money_with_currency }}</p>
+
+            <div class="cart-item-bottom">
+              <div class="cart-quantity">
+                <button
+                  type="button"
+                  aria-label="Decrease quantity"
+                  data-cart-action="change"
+                  data-line="{{ forloop.index }}"
+                  data-quantity="{{ item.quantity | minus: 1 }}"
+                  {% if item.quantity == 1 %}
+                    disabled
+                  {% endif %}
+                >
+                  −
+                </button>
+
+                <input
+                  type="number"
+                  name="quantity"
+                  value="{{ item.quantity }}"
+                  min="1"
+                  aria-label="Quantity"
+                  data-cart-input
+                  data-line="{{ forloop.index }}"
+                >
+
+                <button
+                  type="button"
+                  aria-label="Increase quantity"
+                  data-cart-action="change"
+                  data-line="{{ forloop.index }}"
+                  data-quantity="{{ item.quantity | plus: 1 }}"
+                >
+                  +
+                </button>
+              </div>
+
+              <button
+                type="button"
+                class="cart-remove"
+                data-cart-action="change"
+                data-line="{{ forloop.index }}"
+                data-quantity="0"
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <!-- Order summary -->
+    <div class="cart-footer">
+      <div class="cart-subtotal">
+        <span>Subtotal</span>
+        <strong>{{ cart.total_price | money_with_currency }}</strong>
+      </div>
+
+      <p class="cart-note">{{ note | default: 'Shipping and applicable taxes calculated at checkout.' }}</p>
+
+      <a href="/checkout" class="cart-checkout"> PROCEED TO CHECKOUT <span>→</span> </a>
+
+      <a href="/collections/all" class="cart-continue"> Continue Shopping </a>
+
+      <p class="cart-secure">Secure checkout · Freshly roasted coffee</p>
+    </div>
+  {%- endif -%}
+</div>

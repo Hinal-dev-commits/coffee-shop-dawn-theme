@@ -76,7 +76,7 @@
     const input = quantityBox.querySelector('input[name="quantity"]');
     const decreaseBtn = quantityBox.querySelector('.qty-btn:first-child');
     const increaseBtn = quantityBox.querySelector('.qty-btn:last-child');
-
+    if (!input || !decreaseBtn || !increaseBtn) return; // skip the drawer's quantity box
     const MIN_QTY = 1;
     const MAX_QTY = 6;
 
