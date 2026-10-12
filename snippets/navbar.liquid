@@ -14,8 +14,14 @@
 
     <!-- Navigation menus -->
     <nav class="navbar-menu" aria-label="Main navigation">
-      {%- for link in settings.header_nav.links -%}
-        <a class="nav-link{% if link.active %} active{% endif %}" href="{{ link.url }}"> {{ link.title }}</a>
+      {%- for link in linklists['main-menu'].links -%}
+        <div class="menu-item">
+          <a class="nav-link{% if link.active %} active{% endif %}" href="{{ link.url }}">{{ link.title }}</a>
+
+          {% comment %} {%- if link.handle == 'catalog' -%}
+            {% render 'mega-menu' %}
+          {%- endif -%} {% endcomment %}
+        </div>
       {%- endfor -%}
     </nav>
 
