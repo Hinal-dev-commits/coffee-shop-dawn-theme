@@ -8,7 +8,7 @@
 <div class="cart-overlay" id="cartOverlay"></div>
 
 <!-- Cart drawer -->
-<div class="cart-drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Cart">
+<div class="cart-drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Cart" data-max-qty="{{ max_qty }}">
   <div class="cart-header">
     <div>
       <span class="cart-label">{{ label | default: 'YOUR SELECTION' }}</span>

@@ -189,3 +189,126 @@
           gap: 19px;
       }
   }
+
+  /* --- Base Drawer Setup --- */
+  .mobile-menu-trigger {
+      display: none;
+      /* Hidden on desktop */
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #4b3427;
+  }
+
+  .mobile-drawer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 80%;
+      max-width: 350px;
+      height: 100vh;
+      background: #fbf8f3;
+      z-index: 200;
+      transform: translateX(-100%);
+      /* Pushed off-screen by default */
+      transition: transform 0.3s ease-in-out;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+  }
+
+  .drawer-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 150;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease;
+  }
+
+  /* --- The "Open" State --- */
+  .mobile-drawer.is-open {
+      transform: translateX(0);
+      /* Slides in */
+  }
+
+  .drawer-overlay.is-open {
+      opacity: 1;
+      visibility: visible;
+  }
+
+  /* --- Drawer Header & Close Button --- */
+  .drawer-header {
+      display: flex;
+      justify-content: flex-end;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #e8dfd4;
+      margin-bottom: 20px;
+  }
+
+  .drawer-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: #4b3427;
+      cursor: pointer;
+      padding: 5px;
+      line-height: 1;
+  }
+
+  /* --- Drawer Navigation Links --- */
+  .drawer-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+  }
+
+  .drawer-link {
+      text-decoration: none;
+      color: #5f5044;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.3px;
+      padding: 12px 5px;
+      transition: color 0.2s ease;
+      border-bottom: 1px solid rgba(232, 223, 212, 0.4);
+  }
+
+  .drawer-link:last-child {
+      border-bottom: none;
+  }
+
+  /* Active and Hover States */
+  .drawer-link:hover,
+  .drawer-link.active {
+      color: #4b3427;
+      font-weight: 600;
+      padding-left: 10px;
+      /* Slight indent on hover for interactivity */
+  }
+
+  /* --- Mobile Breakpoint Overrides --- */
+  @media (max-width: 768px) {
+      .desktop-only {
+          display: none;
+          /* Hide standard menu */
+      }
+
+      .mobile-menu-trigger {
+          display: block;
+          /* Show hamburger */
+      }
+
+      /* Reset the container flex properties you had in max-width: 520px */
+      .navbar-container {
+          justify-content: flex-start;
+      }
+
+      .coffee-logo {
+          margin: 0 auto;
+          /* Center logo between hamburger and cart */
+      }
+  }

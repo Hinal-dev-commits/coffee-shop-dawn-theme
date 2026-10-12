@@ -31,12 +31,9 @@
       <div class="swiper-wrapper">
         {%- for media in product.media -%}
           {%- assign media_alt = media.alt | default: product.title | escape -%}
-          <div class="swiper-slide">
-            <img
-              src="{{ media.preview_image | image_url: width: 200 }}"
-              alt="{{ media_alt }}"
-              loading="lazy"
-            >
+          <!-- Added data-media-id here -->
+          <div class="swiper-slide" data-media-id="{{ media.id }}">
+            <img src="{{ media.preview_image | image_url: width: 200 }}" alt="{{ media_alt }}" loading="lazy">
           </div>
         {%- endfor -%}
       </div>
@@ -46,12 +43,9 @@
       <div class="swiper-wrapper">
         {%- for media in product.media -%}
           {%- assign media_alt = media.alt | default: product.title | escape -%}
-          <div class="swiper-slide">
-            <img
-              src="{{ media.preview_image | image_url: width: 800 }}"
-              alt="{{ media_alt }}"
-              loading="lazy"
-            >
+          <!-- Added data-media-id here -->
+          <div class="swiper-slide" data-media-id="{{ media.id }}">
+            <img src="{{ media.preview_image | image_url: width: 800 }}" alt="{{ media_alt }}" loading="lazy">
           </div>
         {%- endfor -%}
       </div>
@@ -59,7 +53,6 @@
       <div class="swiper-button-next"></div>
     </div>
   </section>
-
   <!-- RIGHT: PRODUCT DETAILS -->
   <section class="product-info">
     <p class="category">SPECIALTY COFFEE</p>
@@ -76,21 +69,77 @@
 
     <p class="option-label">Grind Size</p>
 
-    <div class="grind-options">
-      <button class="selected" onclick="selectGrind(this)">Whole Bean</button>
-      <button onclick="selectGrind(this)">Ground</button>
-      <button onclick="selectGrind(this)">French Press</button>
-    </div>
+    {% comment %}
+      <div class="grind-options">
+        <button class="selected" onclick="selectGrind(this)">Whole Bean</button>
+        <button onclick="selectGrind(this)">Ground</button>
+        <button onclick="selectGrind(this)">French Press</button>
+      </div>
 
-    <p class="option-label">Quantity</p>
+      <p class="option-label">Quantity</p>
+
+      {% form 'product', product %}
+        <div class="quantity">
+          {% render 'quantity' %}
+        </div>
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+        <button class="add-to-cart">ADD TO CART</button>
+      {% endform %}
+    {% endcomment %}
 
     {% form 'product', product %}
+      <!-- Dynamic Variant Selectors -->
+      {%- unless product.has_only_default_variant -%}
+        <div id="product-options">
+          {%- for option in product.options_with_values -%}
+            <p class="option-label">{{ option.name }}</p>
+            <div class="variant-options" data-option-index="option{{ option.position }}">
+              {%- for value in option.values -%}
+                <label class="variant-radio">
+                  <input
+                    type="radio"
+                    name="{{ option.name }}"
+                    value="{{ value | escape }}"
+                    {% if option.selected_value == value %}
+                      checked
+                    {% endif %}
+                  >
+                  <span class="btn-visual">{{ value }}</span>
+                </label>
+              {%- endfor -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endunless -%}
+
+      <p class="option-label">Quantity</p>
       <div class="quantity">
         {% render 'quantity' %}
       </div>
+
+      <!-- Hidden input that tells Shopify which specific variant to add to the cart -->
       <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
 
-      <button class="add-to-cart">ADD TO CART</button>
+      <button type="submit" class="add-to-cart">ADD TO CART</button>
+
+      <!-- Variant JSON Data for JavaScript to read -->
+      <script id="product-variants-json" type="application/json">
+        [
+          {%- for variant in product.variants -%}
+            {
+              "id": {{ variant.id }},
+              "option1": {{ variant.option1 | json }},
+              "option2": {{ variant.option2 | json }},
+              "option3": {{ variant.option3 | json }},
+              "price": "{{ variant.price | money }}",
+              "available": {{ variant.available }},
+              "featured_media_position": {{ variant.featured_media.position | default: 0 | json }},
+              "featured_media_id": {{ variant.featured_media.id | default: "null" }}
+            }{% unless forloop.last %},{% endunless %}
+          {%- endfor -%}
+        ]
+      </script>
     {% endform %}
 
     <div class="benefits">

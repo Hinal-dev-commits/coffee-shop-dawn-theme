@@ -1,0 +1,163 @@
+{% comment %}
+  <footer class="coffee-footer" style="background-color: {{ settings.background_color }};">
+    <div class="footer-container">
+      {%- for block in blocks -%}
+        <div class="footer-column" {{ block.shopify_attributes }}>
+          {%- if block.settings.heading != blank -%}
+            <h4 class="footer-heading">{{ block.settings.heading }}</h4>
+          {%- endif -%}
+
+          {%- if block.type == 'link_list' -%}
+            <ul class="footer-menu">
+              {%- for link in block.settings.menu.links -%}
+                <li>
+                  <a href="{{ link.url }}">{{ link.title }}</a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </footer>
+{% endcomment %}
+
+<footer class="coffee-footer">
+  <div class="footer-container">
+    <!-- LEFT SIDE: Logo & Brand -->
+    <div class="footer-brand">
+      <a href="/" class="footer-logo">
+        {%- if settings.logo == blank -%}
+          BREW &amp; BEAN
+        {% else %}
+          <img
+            src="https://cdn.shopify.com/s/files/1/1007/8122/8312/files/Brew_Bean_Coffee_Emblem.png?v=1791629019"
+            alt="Brew & Bean"
+          >
+        {%- endif -%}
+      </a>
+      <p>Good coffee. Slow moments. Better days.</p>
+    </div>
+
+    <!-- RIGHT SIDE: Dynamic Navigation Links -->
+    <div class="footer-links">
+      {%- for block in blocks -%}
+        {%- if block.type == 'link_list' -%}
+          {%- for link in block.settings.menu.links -%}
+            <a href="{{ link.url }}">{{ link.title }}</a>
+          {%- endfor -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <!-- BOTTOM: Copyright -->
+  <div class="footer-bottom">
+    <p>© {{ 'now' | date: '%Y' }} Brew &amp; Bean. All rights reserved.</p>
+    <p>Made for coffee lovers.</p>
+  </div>
+</footer>
+
+<style>
+  /* Base Footer Setup */
+  .coffee-footer {
+    background: #f3ede4;
+    color: #4b3427;
+    padding: 45px 6% 20px;
+    border-top: 1px solid #e8dfd4;
+    font-family: Arial, sans-serif;
+  }
+
+  .footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding-bottom: 35px;
+  }
+
+  /* Left Side: Brand & Logo */
+  .footer-logo {
+    font-family: Georgia, serif;
+    font-size: 25px;
+    letter-spacing: 2px;
+    color: #38291f;
+    text-decoration: none;
+    display: block; /* Ensures the image/text behaves correctly */
+  }
+
+  .footer-logo img {
+    max-width: 120px;
+    height: auto;
+  }
+
+  .footer-brand p {
+    font-size: 13px;
+    color: #806c5d;
+    margin: 12px 0 0;
+    line-height: 1.6;
+  }
+
+  /* Right Side: Dynamic Links */
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px; /* Adds space between the links */
+  }
+
+  .footer-links a {
+    color: #6b5140;
+    font-size: 13px;
+    text-decoration: none;
+    transition: color 0.25s ease;
+  }
+
+  .footer-links a:hover {
+    color: #a17b59;
+  }
+
+  /* Bottom: Copyright */
+  .footer-bottom {
+    border-top: 1px solid #e2d7ca;
+    padding-top: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .footer-bottom p {
+    color: #927d6c;
+    font-size: 11px;
+    margin: 0;
+  }
+
+  /* MOBILE */
+  @media (max-width: 600px) {
+    .coffee-footer {
+      padding: 35px 20px 18px;
+    }
+
+    .footer-container {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 25px;
+      padding-bottom: 25px;
+    }
+
+    .footer-logo {
+      font-size: 22px;
+    }
+
+    .footer-links {
+      gap: 15px 20px;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+  }
+</style>

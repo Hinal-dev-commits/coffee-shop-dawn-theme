@@ -1,0 +1,25 @@
+{% render 'footer', blocks: section.blocks, section_settings: section.settings %}
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#fbf8f3"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link_list",
+      "name": "Menu Column",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading" },
+        { "type": "link_list", "id": "menu", "label": "Select Menu" }
+      ]
+    }
+  ]
+}
+{% endschema %}

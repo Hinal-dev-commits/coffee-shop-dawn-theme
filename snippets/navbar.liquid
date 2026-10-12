@@ -1,7 +1,22 @@
+<script src="{{ 'mobile-menu.js' | asset_url }}" defer></script>
 {{ 'navbar.css' | asset_url | stylesheet_tag }}
 
 <header class="coffee-navbar">
   <div class="navbar-container">
+    <!-- 1. The Trigger (Hamburger) -->
+    <button type="button" class="mobile-menu-trigger" aria-expanded="false" aria-controls="MobileMenu">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
     <!-- Logo -->
     <a href="/" class="coffee-logo">
       {%- if settings.logo == blank -%}
@@ -13,20 +28,22 @@
     </a>
 
     <!-- Navigation menus -->
-    <nav class="navbar-menu" aria-label="Main navigation">
+    <nav class="navbar-menu desktop-only" aria-label="Main navigation">
       {%- for link in linklists['main-menu'].links -%}
         <div class="menu-item">
           <a class="nav-link{% if link.active %} active{% endif %}" href="{{ link.url }}">{{ link.title }}</a>
 
-          {% comment %} {%- if link.handle == 'catalog' -%}
-            {% render 'mega-menu' %}
-          {%- endif -%} {% endcomment %}
+          {% comment %}
+            {%- if link.handle == 'catalog' -%}
+              {% render 'mega-menu' %}
+            {%- endif -%}
+          {% endcomment %}
         </div>
       {%- endfor -%}
     </nav>
 
     <!-- Cart icon -->
-    <a href="/cart" class="navbar-cart" aria-label="Shopping cart">
+    <a href="/cart" class="navbar-cart" aria-label="Shopping cart" data-cart-open>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="22"
@@ -45,4 +62,19 @@
       <span class="cart-badge">0</span>
     </a>
   </div>
+
+  <!-- 2. The Drawer Structure (Mobile) -->
+  <div id="MobileMenu" class="mobile-drawer" aria-hidden="true">
+    <div class="drawer-header">
+      <button type="button" class="drawer-close" aria-label="Close menu">✕</button>
+    </div>
+    <nav class="drawer-nav">
+      {%- for link in linklists['main-menu'].links -%}
+        <a class="drawer-link{% if link.active %} active{% endif %}" href="{{ link.url }}">{{ link.title }}</a>
+      {%- endfor -%}
+    </nav>
+  </div>
+
+  <!-- Overlay to darken the background when open -->
+  <div class="drawer-overlay"></div>
 </header>
