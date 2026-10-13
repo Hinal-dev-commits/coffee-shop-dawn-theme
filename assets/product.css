@@ -494,3 +494,12 @@ img {
 /* body {
     outline: 5px solid red;
 } */
+
+.gallery:not(.is-ready) {
+    opacity: 0;
+}
+
+.gallery.is-ready {
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}

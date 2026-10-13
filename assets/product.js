@@ -1,12 +1,11 @@
-console.log("product.js loaded");
 document.addEventListener("DOMContentLoaded", function () {
+  const galleryEl = document.querySelector(".gallery");
   const thumbsEl = document.querySelector(".thumbs-swiper");
   const mainEl = document.querySelector(".main-swiper");
 
   if (!thumbsEl || !mainEl || typeof Swiper === "undefined") return;
 
-  // --- 1. STORE ORIGINAL SLIDES ---
-  // Save the raw HTML of all images before Swiper modifies the DOM
+  // --- 1. STORE ORIGINAL SLIDES (before Swiper touches the DOM) ---
   const originalThumbs = Array.from(
     thumbsEl.querySelectorAll(".swiper-slide"),
   ).map((slide) => ({
@@ -22,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }));
 
   // --- 2. INITIALIZE SWIPER ---
-  let thumbsSwiper = new Swiper(thumbsEl, {
+  const thumbsSwiper = new Swiper(thumbsEl, {
     slidesPerView: "auto",
     spaceBetween: 12,
     freeMode: true,
@@ -31,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     breakpoints: { 701: { direction: "vertical" } },
   });
 
-  let mainSwiper = new Swiper(mainEl, {
+  const mainSwiper = new Swiper(mainEl, {
     spaceBetween: 10,
     navigation: {
       nextEl: document.querySelector(".swiper-button-next"),
@@ -40,72 +39,80 @@ document.addEventListener("DOMContentLoaded", function () {
     thumbs: { swiper: thumbsSwiper },
   });
 
-  // --- 3. VARIANT SELECTION & FILTERING LOGIC ---
+  // --- 3. VARIANT LOGIC ---
   const optionsContainer = document.getElementById("product-options");
   const variantJsonScript = document.getElementById("product-variants-json");
 
-  if (optionsContainer && variantJsonScript) {
-    const variants = JSON.parse(variantJsonScript.textContent);
-    const hiddenInput = document.querySelector('input[name="id"]');
-    const priceDisplay = document.querySelector(".price");
-    const formInputs = optionsContainer.querySelectorAll('input[type="radio"]');
-
-    // Create a list of image IDs that belong to specific variants (like Matte Black, Navy Blue)
-    const allVariantMediaIds = variants
-      .map((v) => v.featured_media_id)
-      .filter((id) => id !== null);
-
-    formInputs.forEach((input) => {
-      input.addEventListener("change", () => {
-        const selectedOptions = [];
-        optionsContainer
-          .querySelectorAll(".variant-options")
-          .forEach((group) => {
-            const checked = group.querySelector("input:checked");
-            selectedOptions.push(checked ? checked.value : null);
-          });
-
-        const matchedVariant = variants.find((variant) => {
-          return (
-            variant.option1 === selectedOptions[0] &&
-            variant.option2 === (selectedOptions[1] || null) &&
-            variant.option3 === (selectedOptions[2] || null)
-          );
-        });
-
-        if (matchedVariant) {
-          // Update Form Data
-          if (hiddenInput) hiddenInput.value = matchedVariant.id;
-          if (priceDisplay) priceDisplay.innerHTML = matchedVariant.price;
-          window.history.replaceState({}, "", "?variant=" + matchedVariant.id);
-
-          // --- 4. FILTER SWIPER IMAGES ---
-          const currentMediaId = matchedVariant.featured_media_id;
-
-          if (currentMediaId) {
-            // Keep the slide IF it matches the selected color, OR if it's a general image not tied to any color
-            const filterLogic = (slideObj) =>
-              slideObj.id === currentMediaId ||
-              !allVariantMediaIds.includes(slideObj.id);
-
-            const newThumbsHTML = originalThumbs
-              .filter(filterLogic)
-              .map((s) => s.html);
-            const newMainsHTML = originalMains
-              .filter(filterLogic)
-              .map((s) => s.html);
-
-            // Rebuild Swiper with only the filtered images
-            thumbsSwiper.removeAllSlides();
-            thumbsSwiper.appendSlide(newThumbsHTML);
-
-            mainSwiper.removeAllSlides();
-            mainSwiper.appendSlide(newMainsHTML);
-
-            mainSwiper.slideTo(0);
-          }
-        }
-      });
-    });
+  if (!optionsContainer || !variantJsonScript) {
+    galleryEl && galleryEl.classList.add("is-ready");
+    return;
   }
+
+  const variants = JSON.parse(variantJsonScript.textContent);
+  const hiddenInput = document.querySelector('input[name="id"]');
+  const priceDisplay = document.querySelector(".price");
+  const formInputs = optionsContainer.querySelectorAll('input[type="radio"]');
+
+  const allVariantMediaIds = variants
+    .map((v) => v.featured_media_id)
+    .filter((id) => id !== null);
+
+  function getMatchedVariant() {
+    const selectedOptions = [];
+    optionsContainer.querySelectorAll(".variant-options").forEach((group) => {
+      const checked = group.querySelector("input:checked");
+      selectedOptions.push(checked ? checked.value : null);
+    });
+
+    return variants.find(
+      (variant) =>
+        variant.option1 === selectedOptions[0] &&
+        variant.option2 === (selectedOptions[1] || null) &&
+        variant.option3 === (selectedOptions[2] || null),
+    );
+  }
+
+  function filterGallery(variant) {
+    const currentMediaId = variant.featured_media_id;
+    if (!currentMediaId) return;
+
+    // Keep the slide if it is the selected variant's image,
+    // or a general image not tied to any variant
+    const filterLogic = (slideObj) =>
+      slideObj.id === currentMediaId ||
+      !allVariantMediaIds.includes(slideObj.id);
+
+    thumbsSwiper.removeAllSlides();
+    thumbsSwiper.appendSlide(originalThumbs.filter(filterLogic).map((s) => s.html));
+
+    mainSwiper.removeAllSlides();
+    mainSwiper.appendSlide(originalMains.filter(filterLogic).map((s) => s.html));
+
+    thumbsSwiper.update();
+    mainSwiper.update();
+    mainSwiper.slideTo(0);
+  }
+
+  function applyVariant(variant, updateUrl) {
+    if (hiddenInput) hiddenInput.value = variant.id;
+    if (priceDisplay) priceDisplay.innerHTML = variant.price;
+    if (updateUrl) {
+      window.history.replaceState({}, "", "?variant=" + variant.id);
+    }
+    filterGallery(variant);
+  }
+
+  // --- 4. RUN ON PAGE LOAD (this was missing) ---
+  const initialVariant = getMatchedVariant();
+  if (initialVariant) applyVariant(initialVariant, false);
+
+  // --- 5. RUN ON VARIANT CHANGE ---
+  formInputs.forEach((input) => {
+    input.addEventListener("change", () => {
+      const matchedVariant = getMatchedVariant();
+      if (matchedVariant) applyVariant(matchedVariant, true);
+    });
+  });
+
+  galleryEl && galleryEl.classList.add("is-ready");
 });
