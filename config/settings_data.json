@@ -10,7 +10,7 @@
 {
   "current": {
     "logo": "shopify://shop_images/Brew_Bean_Coffee_Emblem.png",
-    "header_nav": "",
+    "header_nav": "main-menu",
     "sections": {
       "cart-drawer": {
         "type": "cart-drawer",
@@ -18,6 +18,25 @@
           "label": "YOUR SELECTION",
           "heading": "Your Cart",
           "note": "Shipping and applicable taxes calculated at checkout."
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "link_list_RjCkxn": {
+            "type": "link_list",
+            "settings": {
+              "heading": "",
+              "menu": "footer",
+              "footer-sub-text": "",
+              "footer-bottom-text": "",
+              "footer-bottom-text-p": ""
+            }
+          }
+        },
+        "block_order": ["link_list_RjCkxn"],
+        "settings": {
+          "background_color": "#fbf8f3"
         }
       }
     },

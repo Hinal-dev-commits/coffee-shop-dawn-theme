@@ -11,11 +11,27 @@
   "sections": {
     "hero": {
       "type": "Hero-sec",
-      "settings": {}
+      "settings": {
+        "Sec-sub-head": "CRAFTED WITH CARE · BREWED WITH LOVE",
+        "heading": "Every Cup Tells a | Beautiful Story.",
+        "Hero-des": "",
+        "Button-txt": "",
+        "Btn-txt": "",
+        "hero-note": "",
+        "hero-image-label": "shopify://shop_images/photo-1445116572660-236099ec97a0.avif",
+        "hero-image-text-label": ""
+      }
     },
     "featured_collection_KmwWKK": {
       "type": "featured-collection",
-      "settings": {}
+      "settings": {
+        "title": "Featured-collection",
+        "featured_collection": "coffee-beans",
+        "sub_head": "",
+        "sub_head2": "",
+        "Product_subtext": "",
+        "Btn-text": ""
+      }
     }
   },
   "order": ["hero", "featured_collection_KmwWKK"]
