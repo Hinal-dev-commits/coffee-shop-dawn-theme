@@ -34,7 +34,9 @@
             }
           }
         },
-        "block_order": ["link_list_RjCkxn"],
+        "block_order": [
+          "link_list_RjCkxn"
+        ],
         "settings": {
           "background_color": "#fbf8f3"
         }

@@ -22,8 +22,8 @@
   </footer>
 {% endcomment %}
 
-<footer class="coffee-footer">
-  <div class="footer-container">
+<footer class="coffee-footer ">
+  <div class="footer-container page-width">
     <!-- LEFT SIDE: Logo & Brand -->
     <div class="footer-brand">
       <a href="/" class="footer-logo">
@@ -52,7 +52,7 @@
   </div>
 
   <!-- BOTTOM: Copyright -->
-  <div class="footer-bottom">
+  <div class="footer-bottom page-width">
     <p>
       © {{ 'now' | date: '%Y' }}
       {{ section.settings['footer-bottom-text'] | default: 'Brew &amp; Bean. All rights reserved.' }}
@@ -62,6 +62,11 @@
 </footer>
 
 <style>
+  .page-width {
+    max-width: 1400px;
+    width: 100%;
+  }
+
   /* Base Footer Setup */
   .coffee-footer {
     background: #f3ede4;

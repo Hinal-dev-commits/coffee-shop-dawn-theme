@@ -1,8 +1,10 @@
 {{ 'hero-sec.css' | asset_url | stylesheet_tag }}
 
-<section class="coffee-hero">
+<section class="coffee-hero ">
   <div class="hero-content">
-    <p class="hero-eyebrow">{{ section.settings['Sec-sub-head'] | default: 'CRAFTED WITH CARE · BREWED WITH LOVE' }}</p>
+    <p class="hero-eyebrow">
+      {{ section.settings['Sec-sub-head'] | default: 'CRAFTED WITH CARE · BREWED WITH LOVE' }}
+    </p>
 
     {%- assign heading_parts = section.settings.heading | split: '|' -%}
     <h1>
