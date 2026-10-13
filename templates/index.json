@@ -9,23 +9,14 @@
  */
 {
   "sections": {
-    "heading": {
-      "type": "heading",
-      "settings": {
-        "text": "Hello from shopify theme!"
-      }
+    "hero": {
+      "type": "Hero-sec",
+      "settings": {}
     },
     "featured_collection_KmwWKK": {
       "type": "featured-collection",
-      "name": "Featured-collections",
-      "settings": {
-        "title": "Featured-collection",
-        "featured_collection": "frontpage"
-      }
+      "settings": {}
     }
   },
-  "order": [
-    "heading",
-    "featured_collection_KmwWKK"
-  ]
+  "order": ["hero", "featured_collection_KmwWKK"]
 }
