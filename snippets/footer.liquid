@@ -36,7 +36,7 @@
           >
         {%- endif -%}
       </a>
-      <p>Good coffee. Slow moments. Better days.</p>
+      <p>{{ section.settings['footer-sub-text'] | default: 'Good coffee. Slow moments. Better days.' }}</p>
     </div>
 
     <!-- RIGHT SIDE: Dynamic Navigation Links -->
@@ -53,8 +53,11 @@
 
   <!-- BOTTOM: Copyright -->
   <div class="footer-bottom">
-    <p>© {{ 'now' | date: '%Y' }} Brew &amp; Bean. All rights reserved.</p>
-    <p>Made for coffee lovers.</p>
+    <p>
+      © {{ 'now' | date: '%Y' }}
+      {{ section.settings['footer-bottom-text'] | default: 'Brew &amp; Bean. All rights reserved.' }}
+    </p>
+    <p>{{ section.settings['footer-bottom-text-p'] | default: 'Made for coffee lovers.' }}</p>
   </div>
 </footer>
 

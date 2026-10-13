@@ -164,6 +164,26 @@
       "type": "collection",
       "id": "featured_collection",
       "label": "Collection"
+    },
+    {
+      "type": "text",
+      "id": "sub_head",
+      "label": "sub head"
+    },
+    {
+      "type": "text",
+      "id": "sub_head2",
+      "label": "sub head"
+    },
+    {
+      "type": "text",
+      "id": "Product_subtext",
+      "label": "Product subtext"
+    },
+    {
+      "type": "text",
+      "id": "Btn-text",
+      "label": "Button text"
     }
   ],
   "presets": [
@@ -176,9 +196,9 @@
 {%- assign featured = section.settings.featured_collection -%}
 <section class="featured">
   <div class="section-heading">
-    <div class="eyebrow">CURATED FOR COFFEE LOVERS</div>
-    <h2>{{ section.settings.title }}</h2>
-    <p>Thoughtfully sourced beans. Beautifully brewed moments.</p>
+    <div class="eyebrow">{{ section.settings.sub_head | default: 'CURATED FOR COFFEE LOVERS' }}</div>
+    <h2>{{ section.settings.title | default: 'Our Featured Collection' }}</h2>
+    <p>{{ section.settings.sub_head2 | default: 'Thoughtfully sourced beans. Beautifully brewed moments.' }}</p>
   </div>
 
   <div class="product-grid">
@@ -188,14 +208,14 @@
           <a href="{{ product.url }}" class="product-image">
             <span class="tag">BESTSELLER</span>
             {%- if product.featured_image -%}
-              {{ product.featured_image | image_url: width: 600 | image_tag: alt: product.title, loading: 'lazy' }}
+              {{ product.featured_image | image_url: width: 600, height: 600 | image_tag: alt: product.title, loading: 'lazy' }}
             {%- else -%}
               {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
             {%- endif -%}
           </a>
           <div class="product-info">
             <h3>{{ product.title }}</h3>
-            <p>Smooth · Chocolate · Caramel</p>
+            <p>{{ section.settings.Product_subtext }}</p>
             <div class="price">{{ product.price | money }}</div>
           </div>
         </article>
@@ -205,5 +225,7 @@
     {%- endif -%}
   </div>
 
-  <a href="/collections/all" class="collection-link"> SHOP ALL COFFEE &rarr; </a>
+  <a href="/collections/all" class="collection-link">
+    {{- section.settings['Btn-text'] | default: 'Visit Our Products' }} &rarr;
+  </a>
 </section>

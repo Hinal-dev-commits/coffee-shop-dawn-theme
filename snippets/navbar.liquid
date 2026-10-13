@@ -29,17 +29,15 @@
 
     <!-- Navigation menus -->
     <nav class="navbar-menu desktop-only" aria-label="Main navigation">
-      {%- for link in linklists['main-menu'].links -%}
-        <div class="menu-item">
-          <a class="nav-link{% if link.active %} active{% endif %}" href="{{ link.url }}">{{ link.title }}</a>
+      {%- assign navbar_menu = settings.header_nav -%}
 
-          {% comment %}
-            {%- if link.handle == 'catalog' -%}
-              {% render 'mega-menu' %}
-            {%- endif -%}
-          {% endcomment %}
-        </div>
-      {%- endfor -%}
+      {%- if navbar_menu != blank -%}
+        {%- for link in navbar_menu.links -%}
+          <div class="menu-item">
+            <a class="nav-link{% if link.active %} active{% endif %}" href="{{ link.url }}">{{ link.title }}</a>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
     </nav>
 
     <!-- Cart icon -->

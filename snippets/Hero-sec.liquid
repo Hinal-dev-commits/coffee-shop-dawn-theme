@@ -1,0 +1,45 @@
+{{ 'hero-sec.css' | asset_url | stylesheet_tag }}
+
+<section class="coffee-hero">
+  <div class="hero-content">
+    <p class="hero-eyebrow">{{ section.settings['Sec-sub-head'] | default: 'CRAFTED WITH CARE · BREWED WITH LOVE' }}</p>
+
+    {%- assign heading_parts = section.settings.heading | split: '|' -%}
+    <h1>
+      {{ heading_parts[0] }}
+      {%- if heading_parts[1] != blank -%}
+        <span>{{ heading_parts[1] | strip }}</span>
+      {%- endif -%}
+    </h1>
+
+    <p class="hero-description">
+      {{
+        section.settings['Hero-des']
+        | default: 'Discover thoughtfully sourced coffee with rich aromas, beautiful flavours, and moments worth slowing down for.'
+      }}
+    </p>
+
+    <div class="hero-buttons">
+      <a href="/collections/all" class="hero-btn hero-btn-primary">
+        {{ section.settings['Button-txt'] | default: 'Shop Coffee' }}
+      </a>
+
+      <a href="" class="hero-btn hero-btn-secondary">{{ section.settings['Btn-txt'] | default: ' Our Story' }} </a>
+    </div>
+
+    <div class="hero-note">
+      <span class="hero-line"></span>
+      <p>{{ section.settings['hero-note'] | default: 'Good coffee. Better moments.' }}</p>
+    </div>
+  </div>
+
+  <div class="hero-image">
+    {%- assign hero_image = section.settings['hero-image-label'] -%}
+    {{ hero_image | image_url: width: 600 | image_tag: alt: section.settings.heading, loading: 'eager' }}
+
+    <div class="hero-image-label">
+      <span>BREW &amp; BEAN</span>
+      <p>{{ section.settings.hero-image-text-label | default: 'Your daily coffee ritual' }}</p>
+    </div>
+  </div>
+</section>
