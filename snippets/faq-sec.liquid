@@ -5,14 +5,13 @@
 {%- if faqs.size > 0 -%}
   <section class="coffee-faq">
     <div class="faq-header">
-      <p class="faq-eyebrow">QUESTIONS & ANSWERS</p>
+      {%- if section_settings.heading != blank -%}
+        <h2>{{ section_settings.heading }}</h2>
+      {%- endif -%}
 
-      <h2>
-        Everything you need<br>
-        to <em>know.</em>
-      </h2>
-
-      <p>Have a question about our coffee, shipping, or orders? We've got you covered.</p>
+      {%- if section_settings.subtext != blank -%}
+        <p>{{ section_settings.subtext }}</p>
+      {%- endif -%}
     </div>
 
     <div class="faq-list">

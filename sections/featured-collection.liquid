@@ -206,7 +206,10 @@
       {%- for product in featured.products limit: 8 -%}
         <article class="product-card">
           <a href="{{ product.url }}" class="product-image">
-            <span class="tag">BESTSELLER</span>
+            {%- assign tags_lower = product.tags | join: ',' | downcase | split: ',' -%}
+            {%- if tags_lower contains 'bestseller' -%}
+              <span class="tag">BESTSELLER</span>
+            {%- endif -%}
             {%- if product.featured_image -%}
               {{
                 product.featured_image

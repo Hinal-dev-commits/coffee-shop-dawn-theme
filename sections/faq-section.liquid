@@ -2,7 +2,21 @@
 
 {% schema %}
 {
-  "settings": [],
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Select a word and click Italic to highlight it.",
+      "default": "Everything you need to <em>know.</em>"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Have a question about our coffee, shipping, or orders? We've got you covered."
+    }
+  ],
   "presets": [
     {
       "name": "faq section"
