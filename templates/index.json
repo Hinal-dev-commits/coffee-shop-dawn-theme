@@ -41,11 +41,17 @@
         "heading": "Made to be <em>enjoyed.</em>",
         "subtext": "A few words from people who have made Brew & Bean part of their daily coffee ritual."
       }
+    },
+    "faq_section_CzcrEP": {
+      "type": "faq-section",
+      "name": "Faq section",
+      "settings": {}
     }
   },
   "order": [
     "hero",
     "featured_collection_KmwWKK",
-    "testimonials_DyLXBc"
+    "testimonials_DyLXBc",
+    "faq_section_CzcrEP"
   ]
 }

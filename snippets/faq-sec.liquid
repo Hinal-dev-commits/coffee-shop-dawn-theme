@@ -1,0 +1,33 @@
+{{ 'faq-sec.css' | asset_url | stylesheet_tag }}
+
+{%- assign faqs = shop.metaobjects.faq.values -%}
+
+{%- if faqs.size > 0 -%}
+  <section class="coffee-faq">
+    <div class="faq-header">
+      <p class="faq-eyebrow">QUESTIONS & ANSWERS</p>
+
+      <h2>
+        Everything you need<br>
+        to <em>know.</em>
+      </h2>
+
+      <p>Have a question about our coffee, shipping, or orders? We've got you covered.</p>
+    </div>
+
+    <div class="faq-list">
+      {%- for faq in faqs -%}
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>{{ faq.question | escape }}</span>
+            <span class="faq-icon">+</span>
+          </summary>
+
+          <div class="faq-answer">
+            <p>{{ faq.answer | escape }}</p>
+          </div>
+        </details>
+      {%- endfor -%}
+    </div>
+  </section>
+{%- endif -%}

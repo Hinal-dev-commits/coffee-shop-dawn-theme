@@ -13,7 +13,7 @@
 
   .featured {
     padding: 75px 7%;
-    background: #f8f5ef;
+    background: #fbf9f5;
   }
 
   .section-heading {
@@ -208,7 +208,11 @@
           <a href="{{ product.url }}" class="product-image">
             <span class="tag">BESTSELLER</span>
             {%- if product.featured_image -%}
-              {{ product.featured_image | image_url: width: 600, height: 600 | image_tag: alt: product.title, loading: 'lazy' }}
+              {{
+                product.featured_image
+                | image_url: width: 600, height: 600
+                | image_tag: alt: product.title, loading: 'lazy'
+              }}
             {%- else -%}
               {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
             {%- endif -%}
