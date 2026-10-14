@@ -32,7 +32,20 @@
         "Product_subtext": "",
         "Btn-text": ""
       }
+    },
+    "testimonials_DyLXBc": {
+      "type": "Testimonials",
+      "name": "Testimonials",
+      "settings": {
+        "eyebrow": "FROM OUR COFFEE LOVERS",
+        "heading": "Made to be <em>enjoyed.</em>",
+        "subtext": "A few words from people who have made Brew & Bean part of their daily coffee ritual."
+      }
     }
   },
-  "order": ["hero", "featured_collection_KmwWKK"]
+  "order": [
+    "hero",
+    "featured_collection_KmwWKK",
+    "testimonials_DyLXBc"
+  ]
 }

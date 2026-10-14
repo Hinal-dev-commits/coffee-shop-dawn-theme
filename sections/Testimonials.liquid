@@ -1,0 +1,33 @@
+{% render 'Testimonials', section_settings: section.settings %}
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Small heading",
+      "default": "FROM OUR COFFEE LOVERS"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Use italic for the highlighted word, for example: Made to be <em>enjoyed.</em>",
+      "default": "Made to be <em>enjoyed.</em>"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "A few words from people who have made Brew & Bean part of their daily coffee ritual."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials"
+    }
+  ]
+}
+{% endschema %}

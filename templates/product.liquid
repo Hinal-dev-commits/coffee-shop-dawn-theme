@@ -1,6 +1,13 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 {{ 'product.css' | asset_url | stylesheet_tag }}
 
+{%- comment -%} Read the Origin metaobject linked to this product {%- endcomment -%}
+{%- assign origin = product.metafields.custom.origin.value -%}
+{%- assign tasting_notes = product.metafields.custom.tasting_notes.value -%}
+{%- assign roast_level = product.metafields.custom.roast_level.value -%}
+{%- assign brew_methods = product.metafields.custom.brew_methods.value -%}
+{%- assign pairs_with = product.metafields.custom.pairs_well_with.value -%}
+
 <main class="product-page">
   <!-- LEFT: IMAGE GALLERY -->
 
@@ -57,6 +64,19 @@
     <p class="category">SPECIALTY COFFEE</p>
 
     <h1>{{ product.title }}</h1>
+
+    {%- if roast_level != blank -%}
+      <span class="roast-badge">{{ roast_level }} Roast</span>
+    {%- endif -%}
+
+    {%- comment -%} TASTING NOTE CHIPS: only show if this product has notes linked {%- endcomment -%}
+    {%- if tasting_notes != blank -%}
+      <ul class="note-chips">
+        {%- for note in tasting_notes -%}
+          <li class="note-chips__chip">{{ note.name }}</li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
 
     <p class="price">{{ product.price | money_with_currency }}</p>
 
@@ -157,13 +177,91 @@
     <details class="details">
       <summary>Product Details</summary>
       <p>
-        Roast: Medium<br>
-        Tasting notes: Chocolate, caramel, nuts<br>
-        Origin: Update with your coffee's origin<br>
+        {%- if roast_level != blank -%}
+          Roast: {{ roast_level -}}
+          <br>
+        {%- endif -%}
+        {%- if tasting_notes != blank -%}
+          Tasting notes:
+          {% for note in tasting_notes -%}
+            {{ note.name -}}
+            {%- unless forloop.last %}, {% endunless %}
+          {%- endfor -%}
+          <br>
+        {%- endif -%}
+        {%- if origin != blank -%}
+          Origin: {{ origin.country -}}
+          {%- if origin.region != blank %}, {{ origin.region }}{% endif -%}
+          <br>
+        {%- else -%}
+          Origin: Update with your coffee's origin<br>
+        {%- endif -%}
         Weight: 340 g<br>
         Storage: Keep in a cool, dry place.
       </p>
     </details>
+    {%- comment -%} ORIGIN CARD: only shows if this product has an Origin linked {%- endcomment -%}
+    {%- if origin != blank -%}
+      <div class="origin-card">
+        {%- if origin.image.value != blank -%}
+          {{
+            origin.image.value
+            | image_url: width: 600
+            | image_tag: loading: 'lazy', alt: origin.country, class: 'origin-card__image'
+          }}
+        {%- endif -%}
+        <div class="origin-card__content">
+          <p class="origin-card__label">WHERE IT'S FROM</p>
+          <h3 class="origin-card__title">
+            {{ origin.country -}}
+            {%- if origin.region != blank %} · {{ origin.region }}{% endif %}
+          </h3>
+          {%- if origin.story != blank -%}
+            <p class="origin-card__story">{{ origin.story }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+    {%- comment -%} HOW TO BREW: only shows if this product has brew methods linked {%- endcomment -%}
+    {%- if brew_methods != blank -%}
+      <div class="brew-guide">
+        <p class="brew-guide__label">HOW TO BREW</p>
+        <div class="brew-guide__list">
+          {%- for method in brew_methods -%}
+            <div class="brew-guide__item">
+              <h4 class="brew-guide__name">{{ method.name }}</h4>
+              <ul class="brew-guide__specs">
+                <li><span>Grind</span> {{ method.grind_size }}</li>
+                <li><span>Ratio</span> {{ method.ratio }}</li>
+                <li><span>Water</span> {{ method.water_temperature }}</li>
+                <li><span>Time</span> {{ method.brew_time }}</li>
+              </ul>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+    {%- comment -%} COMPLETE YOUR SETUP: only shows if this product has paired products {%- endcomment -%}
+    {%- if pairs_with != blank -%}
+      <div class="pairs-with">
+        <p class="pairs-with__label">COMPLETE YOUR SETUP</p>
+        <div class="pairs-with__list">
+          {%- for item in pairs_with -%}
+            <a class="pairs-with__item" href="{{ item.url }}">
+              {%- if item.featured_image != blank -%}
+                {{
+                  item.featured_image
+                  | image_url: width: 200
+                  | image_tag: loading: 'lazy', alt: item.title, class: 'pairs-with__image'
+                }}
+              {%- endif -%}
+              <span class="pairs-with__title">{{ item.title }}</span>
+              <span class="pairs-with__price">{{ item.price | money }}</span>
+            </a>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
   </section>
 </main>
 

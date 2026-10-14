@@ -1,0 +1,52 @@
+{{ 'Testimonials.css' | asset_url | stylesheet_tag }}
+
+{%- assign testimonials = shop.metaobjects.testimonial.values -%}
+
+{%- if testimonials.size > 0 -%}
+  <section class="coffee-testimonials">
+    <div class="testimonials-header">
+      {%- if section_settings.eyebrow != blank -%}
+        <p class="testimonials-eyebrow">{{ section_settings.eyebrow }}</p>
+      {%- endif -%}
+
+      {%- if section_settings.heading != blank -%}
+        <h2>{{ section_settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section_settings.subtext != blank -%}
+        <p>{{ section_settings.subtext }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="testimonials-grid">
+      {%- for testimonial in testimonials -%}
+        {%- assign rating = testimonial.rating.value | default: 5 -%}
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars" aria-label="{{ rating }} out of 5 stars">
+            {%- for i in (1..5) -%}
+              {%- if i <= rating -%}
+                ★
+              {%- else -%}
+                <span style="opacity: 0.25;">★</span>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+
+          <p class="testimonial-text">“{{ testimonial.quote | escape }}”</p>
+
+          <div class="testimonial-author">
+            <div class="author-avatar">{{ testimonial.name | slice: 0, 1 | upcase }}</div>
+
+            <div>
+              <h3>{{ testimonial.name | escape }}</h3>
+              {%- if testimonial.label != blank -%}
+                <span>{{ testimonial.label | escape }}</span>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </section>
+{%- endif -%}
