@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "contact-section",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}
