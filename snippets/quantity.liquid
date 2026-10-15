@@ -55,6 +55,7 @@
     box-shadow: 0 0 0 2px rgba(138, 106, 80, 0.12);
   }
 </style>
+{{ 'global.css' | asset_url | stylesheet_tag }}
 
 <div class="cart-quantity">
   <button type="button" class="qty-btn" aria-label="Decrease quantity">−</button>
