@@ -1,0 +1,243 @@
+/* CONTACT SECTION */
+
+.coffee-contact {
+    padding: 90px 6%;
+    background: #fbf9f5;
+    color: #4b3427;
+    font-family: Arial, sans-serif;
+}
+
+/* HEADER */
+
+.contact-header {
+    max-width: 650px;
+    margin: 0 auto 60px;
+    text-align: center;
+}
+
+.contact-eyebrow {
+    margin: 0 0 16px;
+    color: #94755f;
+    font-size: 10px;
+    letter-spacing: 2.5px;
+}
+
+.contact-header h1 {
+    margin: 0 0 18px;
+    color: #38291f;
+    font-family: Georgia, serif;
+    font-size: clamp(38px, 5vw, 56px);
+    font-weight: 400;
+    line-height: 1.15;
+}
+
+.contact-header h1 em {
+    color: #9a7658;
+    font-weight: 400;
+}
+
+.contact-header>p:last-child {
+    max-width: 480px;
+    margin: 0 auto;
+    color: #806c5d;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+/* MAIN CONTENT */
+
+.contact-wrapper {
+    max-width: 1050px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 70px;
+    align-items: start;
+}
+
+/* CONTACT INFO */
+
+.contact-info {
+    padding: 10px 0;
+}
+
+.contact-info-item {
+    padding: 0 0 25px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #e5dace;
+}
+
+.contact-info-item:last-child {
+    margin-bottom: 0;
+}
+
+.contact-label {
+    display: block;
+    margin-bottom: 9px;
+    color: #94755f;
+    font-size: 9px;
+    letter-spacing: 2px;
+}
+
+.contact-info-item a {
+    color: #4b3427;
+    font-family: Georgia, serif;
+    font-size: 15px;
+    text-decoration: none;
+}
+
+.contact-info-item a:hover {
+    color: #9a7658;
+}
+
+.contact-info-item p {
+    margin: 0;
+    color: #806c5d;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+/* FORM */
+
+.contact-form-wrapper {
+    padding: 38px;
+    background: #f3ede4;
+    border: 1px solid #e5dace;
+}
+
+.contact-form {
+    width: 100%;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #4b3427;
+    font-size: 11px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 14px 15px;
+    border: 1px solid #d9cbbb;
+    border-radius: 0;
+    outline: none;
+    background: #fbf9f5;
+    color: #38291f;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    transition: border-color 0.2s ease;
+}
+
+.form-group input {
+    height: 48px;
+}
+
+.form-group textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #a39181;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #806047;
+}
+
+/* BUTTON */
+
+.contact-submit {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 18px;
+    border: 1px solid #4b3427;
+    border-radius: 0;
+    background: #4b3427;
+    color: #fffaf4;
+    font-size: 11px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background 0.25s ease;
+}
+
+.contact-submit:hover {
+    background: #6b4b37;
+}
+
+.contact-submit span {
+    font-size: 17px;
+}
+
+/* TABLET */
+
+@media (max-width: 800px) {
+
+    .contact-wrapper {
+        grid-template-columns: 1fr;
+        gap: 45px;
+    }
+
+    .contact-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .contact-info-item {
+        margin-bottom: 0;
+    }
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .coffee-contact {
+        padding: 60px 20px;
+    }
+
+    .contact-header {
+        margin-bottom: 40px;
+    }
+
+    .contact-header h1 {
+        font-size: 38px;
+    }
+
+    .contact-info {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .contact-info-item {
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+    }
+
+    .contact-form-wrapper {
+        padding: 25px 20px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}

@@ -1,0 +1,65 @@
+{% render 'contact', section_settings: section.settings %}
+
+{% schema %}
+{
+  "name": "Contact section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Small heading",
+      "default": "GET IN TOUCH"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Select a word and click Italic to highlight it.",
+      "default": "Let's talk <em>coffee.</em>"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Have a question about our coffee, your order, or anything else? We'd love to hear from you."
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email",
+      "default": "hello@brewandbean.com"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone",
+      "default": "+1 (234) 567-890"
+    },
+    {
+      "type": "textarea",
+      "id": "address",
+      "label": "Address",
+      "info": "Press Enter for a new line.",
+      "default": "24 Coffee Street\nDowntown, New York"
+    },
+    {
+      "type": "textarea",
+      "id": "hours",
+      "label": "Opening hours",
+      "info": "Press Enter for a new line.",
+      "default": "Monday – Friday: 8:00 AM – 6:00 PM\nSaturday – Sunday: 9:00 AM – 5:00 PM"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Thank you! Your message has been sent. We'll get back to you soon."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact section"
+    }
+  ]
+}
+{% endschema %}
