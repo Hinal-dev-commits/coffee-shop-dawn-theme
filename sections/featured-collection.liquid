@@ -207,7 +207,12 @@
         <article class="product-card">
           <a href="{{ product.url }}" class="product-image">
             {%- assign tags_lower = product.tags | join: ',' | downcase | split: ',' -%}
-            {%- if tags_lower contains 'bestseller' -%}
+
+            {%- if product.available == false -%}
+              <span class="tag badge--soldout">SOLD OUT</span>
+            {%- elsif product.compare_at_price > product.price -%}
+              <span class="tag badge--sale">SALE</span>
+            {%- elsif tags_lower contains 'bestseller' -%}
               <span class="tag">BESTSELLER</span>
             {%- endif -%}
             {%- if product.featured_image -%}

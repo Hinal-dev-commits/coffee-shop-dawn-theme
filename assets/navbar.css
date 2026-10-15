@@ -312,3 +312,7 @@
           /* Center logo between hamburger and cart */
       }
   }
+
+  .cart-badge[hidden] {
+      display: none;
+  }
