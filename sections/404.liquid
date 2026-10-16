@@ -1,0 +1,39 @@
+{% render '404', section_settings: section.settings %}
+
+{% schema %}
+{
+  "name": "404 Page not found",
+  "settings": [
+    {
+      "type": "text",
+      "id": "error-number",
+      "label": "error-number"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading Text"
+    },
+    {
+      "type": "text",
+      "id": "error-message",
+      "label": "error-message"
+    },
+    {
+    "type": "text",
+    "id": "error-button",
+    "label": "Button text"
+    },
+    {
+    "type": "text",
+    "id": "error-note",
+    "label": "error note"
+    }
+  ],
+  "presets": [
+    {
+      "name": "404 Page not found"
+    }
+  ]
+}
+{% endschema %}

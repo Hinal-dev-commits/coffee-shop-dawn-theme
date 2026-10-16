@@ -1,0 +1,33 @@
+{{ '404.css' | asset_url | stylesheet_tag }}
+
+<section class="coffee-404">
+  <div class="error-content">
+    <p class="error-eyebrow">BREW & BEAN</p>
+
+    <div class="error-number">{{ section.settings['error-number'] | default: '404' }}</div>
+
+    <h1>
+      {{ section.settings.heading | default: 'Looks like this cup<br> is <em>empty.</em>' }}
+    </h1>
+
+    {% comment %}
+      <h1>
+        Looks like this cup<br>
+        is <em>empty.</em>
+      </h1>
+    {% endcomment %}
+    <p class="error-message">
+      {{
+        section.settings['error-message']
+        | default: "The page you're looking for couldn't be found. It may have moved, or perhaps it was never brewed."
+      }}
+    </p>
+
+    <a href="/" class="error-button">
+      {{ section.settings['error-button'] | default: 'Back to Home' }}
+      <span>→</span>
+    </a>
+
+    <p class="error-note">{{ section.settings['error-note'] | default: 'Good coffee. Better moments.' }}</p>
+  </div>
+</section>

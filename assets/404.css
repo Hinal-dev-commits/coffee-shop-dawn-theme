@@ -1,0 +1,125 @@
+/* 404 PAGE */
+
+.coffee-404 {
+    min-height: 80vh;
+    padding: 80px 20px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fbf9f5;
+    color: #4b3427;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+.error-content {
+    max-width: 600px;
+}
+
+/* EYEBROW */
+
+.error-eyebrow {
+    margin: 0 0 20px;
+    color: #94755f;
+    font-size: 10px;
+    letter-spacing: 3px;
+}
+
+/* 404 NUMBER */
+
+.error-number {
+    margin-bottom: 5px;
+    color: #e5d8c9;
+    font-family: Georgia, serif;
+    font-size: clamp(100px, 18vw, 190px);
+    font-weight: 400;
+    line-height: 0.9;
+    letter-spacing: -8px;
+}
+
+/* HEADING */
+
+.error-content h1 {
+    margin: 25px 0 18px;
+    color: #38291f;
+    font-family: Georgia, serif;
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.error-content h1 em {
+    color: #9a7658;
+    font-weight: 400;
+}
+
+/* MESSAGE */
+
+.error-message {
+    max-width: 430px;
+    margin: 0 auto 30px;
+    color: #806c5d;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+/* BUTTON */
+
+.error-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 35px;
+    min-width: 155px;
+    padding: 14px 18px;
+    box-sizing: border-box;
+    border: 1px solid #4b3427;
+    background: #4b3427;
+    color: #fffaf4;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: background 0.25s ease;
+}
+
+.error-button:hover {
+    background: #6b4b37;
+}
+
+.error-button span {
+    font-size: 17px;
+}
+
+/* NOTE */
+
+.error-note {
+    margin: 28px 0 0;
+    color: #a08b79;
+    font-family: Georgia, serif;
+    font-size: 11px;
+    font-style: italic;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .coffee-404 {
+        min-height: 75vh;
+        padding: 60px 20px;
+    }
+
+    .error-number {
+        letter-spacing: -5px;
+    }
+
+    .error-content h1 {
+        font-size: 34px;
+    }
+
+    .error-message {
+        font-size: 12px;
+    }
+
+}
