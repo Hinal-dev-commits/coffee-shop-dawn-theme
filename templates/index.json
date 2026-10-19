@@ -25,7 +25,7 @@
     "featured_collection_KmwWKK": {
       "type": "featured-collection",
       "settings": {
-        "title": "Featured-collection",
+        "title": "Featured Collection",
         "featured_collection": "coffee-beans",
         "sub_head": "",
         "sub_head2": "",
@@ -45,7 +45,10 @@
     "faq_section_CzcrEP": {
       "type": "faq-section",
       "name": "Faq section",
-      "settings": {}
+      "settings": {
+        "heading": "Everything you need to <em>know.</em>",
+        "subtext": "Have a question about our coffee, shipping, or orders? We've got you covered."
+      }
     }
   },
   "order": [
