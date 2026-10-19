@@ -26,7 +26,7 @@
       "type": "Trust-Banner",
       "name": "Trust Banner",
       "settings": {
-        "EthicallySourced": "",
+        "EthicallySourced": "first head",
         "FreshlyRoasted": "",
         "PackedWithCare": "",
         "FreeShipping": "",
