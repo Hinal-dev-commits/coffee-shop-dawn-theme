@@ -1,0 +1,182 @@
+{%- comment -%}
+  Purchase options: Buy One-Time vs Subscribe & Save.
+  Render inside the product <form>:
+    {% render 'purchase-options', product: product %}
+  Needs a variant id input named "id" in the same form.
+{%- endcomment -%}
+
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign default_mode = 'subscribe'
+-%}
+
+{%- if product.selling_plan_groups.size > 0 -%}
+  <div class="purchase-options" data-purchase-options data-default-mode="{{ default_mode }}" data-variant-id="{{ current_variant.id }}">
+
+    <label class="po-card" data-po-card="subscribe">
+      <input type="radio" name="purchase_type" value="subscribe" {% if default_mode == 'subscribe' %}checked{% endif %}>
+      <span class="po-card__body">
+        <span class="po-card__title">Subscribe &amp; Save <span class="po-badge" data-po-badge hidden></span></span>
+        <span class="po-card__price" data-po-sub-price></span>
+        <span class="po-card__select-wrap" data-po-select-wrap>
+          <span class="po-label">Delivery frequency</span>
+          <select class="po-select" data-po-select aria-label="Delivery frequency"></select>
+        </span>
+      </span>
+    </label>
+
+    <label class="po-card" data-po-card="onetime">
+      <input type="radio" name="purchase_type" value="onetime" {% if default_mode != 'subscribe' %}checked{% endif %}>
+      <span class="po-card__body">
+        <span class="po-card__title">Buy One-Time</span>
+        <span class="po-card__price" data-po-one-price>{{ current_variant.price | money }}</span>
+      </span>
+    </label>
+
+    <input type="hidden" name="selling_plan" value="" data-po-plan-input disabled>
+  </div>
+
+  <script type="application/json" data-po-data>
+    {
+      "variants": {
+        {%- for variant in product.variants -%}
+          "{{ variant.id }}": {
+            "price": {{ variant.price }},
+            "priceFormatted": {{ variant.price | money | json }},
+            "allocations": [
+              {%- for alloc in variant.selling_plan_allocations -%}
+                {%- liquid
+                  assign saved = variant.price | minus: alloc.price
+                  assign pct = 0
+                  if saved > 0
+                    assign pct = saved | times: 100 | divided_by: variant.price
+                  endif
+                -%}
+                {
+                  "id": {{ alloc.selling_plan.id }},
+                  "name": {{ alloc.selling_plan.name | json }},
+                  "price": {{ alloc.price | money | json }},
+                  "perDelivery": {{ alloc.per_delivery_price | money | json }},
+                  "percent": {{ pct }}
+                }{% unless forloop.last %},{% endunless %}
+              {%- endfor -%}
+            ]
+          }{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      }
+    }
+  </script>
+
+  <style>
+    .purchase-options { display: grid; gap: 12px; margin: 20px 0; }
+    .po-card {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 16px; border: 1px solid #d9cfc4; border-radius: 10px;
+      background: #fff; cursor: pointer; transition: border-color .2s, box-shadow .2s;
+    }
+    .po-card:has(input:checked) { border-color: #3b2a22; box-shadow: 0 0 0 1px #3b2a22; }
+    .po-card input[type="radio"] { margin-top: 4px; accent-color: #3b2a22; }
+    .po-card__body { display: grid; gap: 6px; flex: 1; }
+    .po-card__title { font-weight: 600; font-size: 16px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .po-card__price { font-size: 15px; color: #5a4a40; }
+    .po-badge { background: #3b2a22; color: #fff; font-size: 12px; font-weight: 500; padding: 2px 8px; border-radius: 999px; }
+    .po-label { display: block; font-size: 13px; color: #7a6a5f; margin-bottom: 4px; }
+    .po-select { width: 100%; padding: 10px 12px; border: 1px solid #d9cfc4; border-radius: 8px; background: #fff; font-size: 15px; }
+    .po-card__select-wrap[hidden] { display: none; }
+  </style>
+
+  <script>
+    (function () {
+      var root = document.currentScript.previousElementSibling.previousElementSibling;
+      // root = .purchase-options (the two elements before this script are the JSON script and the style)
+      root = document.querySelector('[data-purchase-options]');
+      if (!root || root.dataset.poInit) return;
+      root.dataset.poInit = '1';
+
+      var data;
+      try { data = JSON.parse(root.parentNode.querySelector('[data-po-data]').textContent); }
+      catch (e) { return; }
+
+      var select = root.querySelector('[data-po-select]');
+      var selectWrap = root.querySelector('[data-po-select-wrap]');
+      var subPrice = root.querySelector('[data-po-sub-price]');
+      var onePrice = root.querySelector('[data-po-one-price]');
+      var badge = root.querySelector('[data-po-badge]');
+      var planInput = root.querySelector('[data-po-plan-input]');
+      var subCard = root.querySelector('[data-po-card="subscribe"]');
+      var radios = root.querySelectorAll('input[name="purchase_type"]');
+      var currentVariantId = root.dataset.variantId;
+
+      function mode() {
+        var checked = root.querySelector('input[name="purchase_type"]:checked');
+        return checked ? checked.value : 'onetime';
+      }
+
+      function renderVariant(variantId) {
+        currentVariantId = String(variantId);
+        var v = data.variants[currentVariantId];
+        if (!v) return;
+
+        onePrice.textContent = v.priceFormatted;
+
+        if (!v.allocations.length) {
+          // This variant has no subscription plans
+          subCard.hidden = true;
+          root.querySelector('input[value="onetime"]').checked = true;
+          sync();
+          return;
+        }
+
+        subCard.hidden = false;
+        var previous = select.value;
+        select.innerHTML = '';
+        v.allocations.forEach(function (a) {
+          var opt = document.createElement('option');
+          opt.value = a.id;
+          opt.textContent = a.name;
+          select.appendChild(opt);
+        });
+        if (previous && select.querySelector('option[value="' + previous + '"]')) select.value = previous;
+        sync();
+      }
+
+      function sync() {
+        var v = data.variants[currentVariantId];
+        if (!v) return;
+        var isSub = mode() === 'subscribe' && v.allocations.length > 0;
+        var alloc = v.allocations.find(function (a) { return String(a.id) === String(select.value); }) || v.allocations[0];
+
+        selectWrap.hidden = !isSub;
+
+        if (alloc) {
+          subPrice.textContent = alloc.price;
+          if (alloc.percent > 0) {
+            badge.textContent = 'Save ' + alloc.percent + '%';
+            badge.hidden = false;
+          } else {
+            badge.hidden = true;
+          }
+        }
+
+        if (isSub && alloc) {
+          planInput.value = alloc.id;
+          planInput.disabled = false;
+        } else {
+          planInput.value = '';
+          planInput.disabled = true;
+        }
+      }
+
+      radios.forEach(function (r) { r.addEventListener('change', sync); });
+      select.addEventListener('change', sync);
+
+      // Call from product.js when the variant changes:
+      // document.dispatchEvent(new CustomEvent('variant:change', { detail: { variantId: variant.id } }));
+      document.addEventListener('variant:change', function (e) {
+        if (e.detail && e.detail.variantId) renderVariant(e.detail.variantId);
+      });
+
+      renderVariant(currentVariantId);
+    })();
+  </script>
+{%- endif -%}
