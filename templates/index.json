@@ -26,10 +26,10 @@
       "type": "Trust-Banner",
       "name": "Trust Banner",
       "settings": {
-        "EthicallySourced": "thsi is first one",
-        "FreshlyRoasted": "",
-        "PackedWithCare": "",
-        "FreeShipping": "",
+        "ethically_sourced": "",
+        "freshly_roasted": "",
+        "packed_with_care": "",
+        "free_shipping": "",
         "subtxt1": "",
         "subtxt2": "",
         "subtxt3": "",
@@ -45,6 +45,50 @@
         "sub_head2": "",
         "Product_subtext": "",
         "Btn-text": ""
+      }
+    },
+    "subscription_banner_UVyEmK": {
+      "type": "subscription-banner",
+      "blocks": {
+        "benefit_wLpXzQ": {
+          "type": "benefit",
+          "settings": {
+            "text": "Save 10% on every delivery"
+          }
+        },
+        "benefit_hc3jXQ": {
+          "type": "benefit",
+          "settings": {
+            "text": "Fresh coffee delivered every 4 weeks"
+          }
+        },
+        "benefit_WxDg3M": {
+          "type": "benefit",
+          "settings": {
+            "text": "Skip, pause or cancel anytime"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_wLpXzQ",
+        "benefit_hc3jXQ",
+        "benefit_WxDg3M"
+      ],
+      "name": "Coffee Subscription",
+      "settings": {
+        "eyebrow": "COFFEE, ON YOUR SCHEDULE",
+        "heading": "Never run out of",
+        "heading_highlight": "your favourite coffee.",
+        "description": "Make your morning ritual effortless. Subscribe to your favourite coffee and enjoy fresh beans delivered to your door on a schedule that works for you.",
+        "badge_text": "SAVE 10%",
+        "card_heading": "Your Coffee, Delivered",
+        "saving_text": "Save 10%",
+        "saving_note": "on every delivery",
+        "frequency": "Delivery every 4 weeks",
+        "frequency_save": "10% off",
+        "card_note": "Automatically delivered to your door",
+        "button_text": "Explore Coffee Subscriptions",
+        "button_link": ""
       }
     },
     "testimonials_DyLXBc": {
@@ -69,6 +113,7 @@
     "hero",
     "trust_banner_prRJnn",
     "featured_collection_KmwWKK",
+    "subscription_banner_UVyEmK",
     "testimonials_DyLXBc",
     "faq_section_CzcrEP"
   ]
