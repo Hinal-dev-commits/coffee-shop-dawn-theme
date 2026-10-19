@@ -22,20 +22,6 @@
         "hero-image-text-label": ""
       }
     },
-    "trust_banner_pwjnyR": {
-      "type": "Trust-Banner",
-      "name": "Trust Banner",
-      "settings": {
-        "EthicallySourced": "first head",
-        "FreshlyRoasted": "",
-        "PackedWithCare": "",
-        "FreeShipping": "",
-        "subtxt1": "",
-        "subtxt2": "",
-        "subtxt3": "",
-        "subtxt4": ""
-      }
-    },
     "trust_banner_prRJnn": {
       "type": "Trust-Banner",
       "name": "Trust Banner",
@@ -81,7 +67,6 @@
   },
   "order": [
     "hero",
-    "trust_banner_pwjnyR",
     "trust_banner_prRJnn",
     "featured_collection_KmwWKK",
     "testimonials_DyLXBc",
