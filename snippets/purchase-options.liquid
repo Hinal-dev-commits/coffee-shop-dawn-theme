@@ -1,8 +1,7 @@
 {%- comment -%}
   Purchase options: Buy One-Time vs Subscribe & Save.
-  Render inside the product <form>:
+  Render inside the product <form>, after the hidden input[name="id"]:
     {% render 'purchase-options', product: product %}
-  Needs a variant id input named "id" in the same form.
 {%- endcomment -%}
 
 {%- liquid
@@ -11,12 +10,15 @@
 -%}
 
 {%- if product.selling_plan_groups.size > 0 -%}
-  <div class="purchase-options" data-purchase-options data-default-mode="{{ default_mode }}" data-variant-id="{{ current_variant.id }}">
+  <div class="purchase-options" data-purchase-options data-variant-id="{{ current_variant.id }}">
 
     <label class="po-card" data-po-card="subscribe">
       <input type="radio" name="purchase_type" value="subscribe" {% if default_mode == 'subscribe' %}checked{% endif %}>
       <span class="po-card__body">
-        <span class="po-card__title">Subscribe &amp; Save <span class="po-badge" data-po-badge hidden></span></span>
+        <span class="po-card__title">
+          Subscribe &amp; Save
+          <span class="po-badge" data-po-badge hidden></span>
+        </span>
         <span class="po-card__price" data-po-sub-price></span>
         <span class="po-card__select-wrap" data-po-select-wrap>
           <span class="po-label">Delivery frequency</span>
@@ -41,7 +43,6 @@
       "variants": {
         {%- for variant in product.variants -%}
           "{{ variant.id }}": {
-            "price": {{ variant.price }},
             "priceFormatted": {{ variant.price | money | json }},
             "allocations": [
               {%- for alloc in variant.selling_plan_allocations -%}
@@ -56,7 +57,6 @@
                   "id": {{ alloc.selling_plan.id }},
                   "name": {{ alloc.selling_plan.name | json }},
                   "price": {{ alloc.price | money | json }},
-                  "perDelivery": {{ alloc.per_delivery_price | money | json }},
                   "percent": {{ pct }}
                 }{% unless forloop.last %},{% endunless %}
               {%- endfor -%}
@@ -74,6 +74,9 @@
       padding: 16px; border: 1px solid #d9cfc4; border-radius: 10px;
       background: #fff; cursor: pointer; transition: border-color .2s, box-shadow .2s;
     }
+    .po-card[hidden],
+    .po-card__select-wrap[hidden],
+    .po-badge[hidden] { display: none; }
     .po-card:has(input:checked) { border-color: #3b2a22; box-shadow: 0 0 0 1px #3b2a22; }
     .po-card input[type="radio"] { margin-top: 4px; accent-color: #3b2a22; }
     .po-card__body { display: grid; gap: 6px; flex: 1; }
@@ -82,101 +85,120 @@
     .po-badge { background: #3b2a22; color: #fff; font-size: 12px; font-weight: 500; padding: 2px 8px; border-radius: 999px; }
     .po-label { display: block; font-size: 13px; color: #7a6a5f; margin-bottom: 4px; }
     .po-select { width: 100%; padding: 10px 12px; border: 1px solid #d9cfc4; border-radius: 8px; background: #fff; font-size: 15px; }
-    .po-card__select-wrap[hidden] { display: none; }
   </style>
 
   <script>
     (function () {
-      var root = document.currentScript.previousElementSibling.previousElementSibling;
-      // root = .purchase-options (the two elements before this script are the JSON script and the style)
-      root = document.querySelector('[data-purchase-options]');
-      if (!root || root.dataset.poInit) return;
-      root.dataset.poInit = '1';
+      function init() {
+        var root = document.querySelector('[data-purchase-options]');
+        if (!root || root.dataset.poInit) return;
+        root.dataset.poInit = '1';
 
-      var data;
-      try { data = JSON.parse(root.parentNode.querySelector('[data-po-data]').textContent); }
-      catch (e) { return; }
+        var form = root.closest('form');
+        if (!form) return;
 
-      var select = root.querySelector('[data-po-select]');
-      var selectWrap = root.querySelector('[data-po-select-wrap]');
-      var subPrice = root.querySelector('[data-po-sub-price]');
-      var onePrice = root.querySelector('[data-po-one-price]');
-      var badge = root.querySelector('[data-po-badge]');
-      var planInput = root.querySelector('[data-po-plan-input]');
-      var subCard = root.querySelector('[data-po-card="subscribe"]');
-      var radios = root.querySelectorAll('input[name="purchase_type"]');
-      var currentVariantId = root.dataset.variantId;
-
-      function mode() {
-        var checked = root.querySelector('input[name="purchase_type"]:checked');
-        return checked ? checked.value : 'onetime';
-      }
-
-      function renderVariant(variantId) {
-        currentVariantId = String(variantId);
-        var v = data.variants[currentVariantId];
-        if (!v) return;
-
-        onePrice.textContent = v.priceFormatted;
-
-        if (!v.allocations.length) {
-          // This variant has no subscription plans
-          subCard.hidden = true;
-          root.querySelector('input[value="onetime"]').checked = true;
-          sync();
+        var data;
+        try {
+          data = JSON.parse(form.querySelector('[data-po-data]').textContent);
+        } catch (e) {
           return;
         }
 
-        subCard.hidden = false;
-        var previous = select.value;
-        select.innerHTML = '';
-        v.allocations.forEach(function (a) {
-          var opt = document.createElement('option');
-          opt.value = a.id;
-          opt.textContent = a.name;
-          select.appendChild(opt);
-        });
-        if (previous && select.querySelector('option[value="' + previous + '"]')) select.value = previous;
-        sync();
-      }
+        var idInput = form.querySelector('input[name="id"]');
+        var select = root.querySelector('[data-po-select]');
+        var selectWrap = root.querySelector('[data-po-select-wrap]');
+        var subPrice = root.querySelector('[data-po-sub-price]');
+        var onePrice = root.querySelector('[data-po-one-price]');
+        var badge = root.querySelector('[data-po-badge]');
+        var planInput = root.querySelector('[data-po-plan-input]');
+        var subCard = root.querySelector('[data-po-card="subscribe"]');
+        var radios = root.querySelectorAll('input[name="purchase_type"]');
+        var currentVariantId = root.dataset.variantId;
 
-      function sync() {
-        var v = data.variants[currentVariantId];
-        if (!v) return;
-        var isSub = mode() === 'subscribe' && v.allocations.length > 0;
-        var alloc = v.allocations.find(function (a) { return String(a.id) === String(select.value); }) || v.allocations[0];
+        function mode() {
+          var checked = root.querySelector('input[name="purchase_type"]:checked');
+          return checked ? checked.value : 'onetime';
+        }
 
-        selectWrap.hidden = !isSub;
+        function sync() {
+          var v = data.variants[currentVariantId];
+          if (!v) return;
+          var hasPlans = v.allocations.length > 0;
+          var isSub = mode() === 'subscribe' && hasPlans;
+          var alloc = null;
+          if (hasPlans) {
+            alloc = v.allocations.find(function (a) { return String(a.id) === String(select.value); }) || v.allocations[0];
+          }
 
-        if (alloc) {
-          subPrice.textContent = alloc.price;
-          if (alloc.percent > 0) {
-            badge.textContent = 'Save ' + alloc.percent + '%';
-            badge.hidden = false;
+          selectWrap.hidden = !isSub;
+
+          if (alloc) {
+            subPrice.textContent = alloc.price;
+            if (alloc.percent > 0) {
+              badge.textContent = 'Save ' + alloc.percent + '%';
+              badge.hidden = false;
+            } else {
+              badge.hidden = true;
+            }
+          }
+
+          if (isSub && alloc) {
+            planInput.value = alloc.id;
+            planInput.disabled = false;
           } else {
-            badge.hidden = true;
+            planInput.value = '';
+            planInput.disabled = true;
           }
         }
 
-        if (isSub && alloc) {
-          planInput.value = alloc.id;
-          planInput.disabled = false;
-        } else {
-          planInput.value = '';
-          planInput.disabled = true;
+        function renderVariant(variantId) {
+          currentVariantId = String(variantId);
+          var v = data.variants[currentVariantId];
+          if (!v) return;
+
+          onePrice.textContent = v.priceFormatted;
+
+          if (!v.allocations.length) {
+            subCard.hidden = true;
+            root.querySelector('input[value="onetime"]').checked = true;
+            sync();
+            return;
+          }
+
+          subCard.hidden = false;
+          var previous = select.value;
+          select.innerHTML = '';
+          v.allocations.forEach(function (a) {
+            var opt = document.createElement('option');
+            opt.value = a.id;
+            opt.textContent = a.name;
+            select.appendChild(opt);
+          });
+          if (previous && select.querySelector('option[value="' + previous + '"]')) {
+            select.value = previous;
+          }
+          sync();
         }
+
+        radios.forEach(function (r) { r.addEventListener('change', sync); });
+        select.addEventListener('change', sync);
+
+        // When a size/option changes, wait one tick so product.js can update input[name="id"] first
+        form.addEventListener('change', function (event) {
+          if (!event.target.closest('.variant-options')) return;
+          setTimeout(function () {
+            if (idInput && idInput.value) renderVariant(idInput.value);
+          }, 0);
+        });
+
+        renderVariant((idInput && idInput.value) || currentVariantId);
       }
 
-      radios.forEach(function (r) { r.addEventListener('change', sync); });
-      select.addEventListener('change', sync);
-
-      // Call from product.js when the variant changes:
-      // document.dispatchEvent(new CustomEvent('variant:change', { detail: { variantId: variant.id } }));
-      document.addEventListener('variant:change', function (e) {
-        if (e.detail && e.detail.variantId) renderVariant(e.detail.variantId);
-      });
-
-      renderVariant(currentVariantId);
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
     })();
   </script>
 {%- endif -%}
