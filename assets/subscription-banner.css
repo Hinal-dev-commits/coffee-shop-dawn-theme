@@ -1,0 +1,380 @@
+/* =========================
+   COFFEE SUBSCRIPTION
+========================= */
+
+.coffee-subscription {
+    padding: 90px 6%;
+    background: #F8F4EE;
+    color: #4B3427;
+}
+
+.subscription-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 80px;
+
+    align-items: center;
+}
+
+
+/* =========================
+   LEFT CONTENT
+========================= */
+
+.subscription-content {
+    max-width: 540px;
+}
+
+.subscription-eyebrow {
+    margin: 0 0 17px;
+
+    color: #94755F;
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+    letter-spacing: 2.7px;
+}
+
+.subscription-content h2 {
+    margin: 0 0 20px;
+
+    color: #38291F;
+    font-family: Georgia, serif;
+    font-size: clamp(38px, 5vw, 56px);
+    font-weight: 400;
+    line-height: 1.08;
+}
+
+.subscription-content h2 em {
+    color: #9A7658;
+    font-weight: 400;
+}
+
+.subscription-description {
+    max-width: 470px;
+    margin: 0 0 30px;
+
+    color: #806C5D;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.85;
+}
+
+
+/* =========================
+   BENEFITS
+========================= */
+
+.subscription-benefits {
+    margin-bottom: 32px;
+}
+
+.subscription-benefit {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-bottom: 12px;
+}
+
+.subscription-benefit:last-child {
+    margin-bottom: 0;
+}
+
+.subscription-benefit span {
+    width: 20px;
+    height: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #CDBBA8;
+    border-radius: 50%;
+
+    color: #806047;
+    font-size: 10px;
+}
+
+.subscription-benefit p {
+    margin: 0;
+
+    color: #5F4A3B;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.subscription-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 35px;
+
+    min-width: 220px;
+
+    padding: 15px 18px;
+
+    border: 1px solid #4B3427;
+
+    background: #4B3427;
+    color: #FFFAF4;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.8px;
+    text-decoration: none;
+
+    transition: background 0.25s ease;
+}
+
+.subscription-button:hover {
+    background: #6B4B37;
+}
+
+.subscription-button span {
+    font-size: 16px;
+}
+
+
+/* =========================
+   SUBSCRIPTION CARD
+========================= */
+
+.subscription-card {
+    position: relative;
+
+    max-width: 400px;
+    width: 100%;
+
+    margin-left: auto;
+
+    background: #FBF9F5;
+
+    border: 1px solid #E0D4C6;
+
+    box-shadow: 0 15px 40px rgba(75, 52, 39, 0.06);
+}
+
+
+/* CARD TOP */
+
+.subscription-card-top {
+    min-height: 130px;
+
+    padding: 25px;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    background: #EDE3D5;
+}
+
+.subscription-badge {
+    padding: 6px 9px;
+
+    border: 1px solid #CDBBA8;
+
+    color: #6B5140;
+
+    font-family: Arial, sans-serif;
+    font-size: 8px;
+    letter-spacing: 1.5px;
+}
+
+.subscription-coffee-icon {
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #CDBBA8;
+    border-radius: 50%;
+
+    color: #806047;
+    font-size: 21px;
+}
+
+
+/* CARD CONTENT */
+
+.subscription-card-content {
+    padding: 30px;
+}
+
+.subscription-card-label {
+    margin: 0 0 8px;
+
+    color: #94755F;
+
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+    letter-spacing: 2px;
+}
+
+.subscription-card h3 {
+    margin: 0 0 20px;
+
+    color: #38291F;
+
+    font-family: Georgia, serif;
+    font-size: 25px;
+    font-weight: 400;
+}
+
+
+/* SAVING */
+
+.subscription-saving {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+
+    padding-bottom: 22px;
+
+    border-bottom: 1px solid #E5DACE;
+}
+
+.saving-value {
+    color: #4B3427;
+
+    font-family: Georgia, serif;
+    font-size: 30px;
+}
+
+.saving-note {
+    color: #94755F;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+}
+
+
+/* FREQUENCY */
+
+.subscription-frequency {
+    padding: 22px 0;
+}
+
+.frequency-label {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: #94755F;
+
+    font-family: Arial, sans-serif;
+    font-size: 8px;
+    letter-spacing: 1.8px;
+}
+
+.frequency-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 13px 14px;
+
+    border: 1px solid #D9CBBB;
+
+    background: #F8F4EE;
+
+    color: #5F4A3B;
+
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+}
+
+.frequency-option strong {
+    color: #806047;
+
+    font-size: 10px;
+    font-weight: 400;
+}
+
+
+/* NOTE */
+
+.subscription-note {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid #E5DACE;
+}
+
+.subscription-note span {
+    color: #806047;
+    font-size: 11px;
+}
+
+.subscription-note p {
+    margin: 0;
+
+    color: #806C5D;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 850px) {
+
+    .subscription-inner {
+        grid-template-columns: 1fr;
+        gap: 55px;
+    }
+
+    .subscription-content {
+        max-width: 600px;
+    }
+
+    .subscription-card {
+        margin: 0 auto;
+    }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .coffee-subscription {
+        padding: 65px 20px;
+    }
+
+    .subscription-content h2 {
+        font-size: 40px;
+    }
+
+    .subscription-card-content {
+        padding: 25px;
+    }
+
+    .subscription-card-top {
+        min-height: 110px;
+        padding: 20px;
+    }
+
+    .frequency-option {
+        gap: 10px;
+    }
+
+}

@@ -1,0 +1,212 @@
+{{ 'subscription-banner.css' | asset_url | stylesheet_tag }}
+<section class="coffee-subscription">
+  <div class="subscription-inner">
+    <div class="subscription-content">
+      <p class="subscription-eyebrow">
+        {{ section.settings.eyebrow }}
+      </p>
+
+      <h2>
+        {{ section.settings.heading }}
+        <em>{{ section.settings.heading_highlight }}</em>
+      </h2>
+
+      <p class="subscription-description">
+        {{ section.settings.description }}
+      </p>
+
+      <div class="subscription-benefits">
+        {% for block in section.blocks %}
+          <div class="subscription-benefit" {{ block.shopify_attributes }}>
+            <span>✓</span>
+            <p>{{ block.settings.text }}</p>
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if section.settings.button_text != blank %}
+        <a
+          href="{{ section.settings.button_link }}"
+          class="subscription-button"
+        >
+          {{ section.settings.button_text }}
+          <span>→</span>
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="subscription-card">
+      <div class="subscription-card-top">
+        <span class="subscription-badge">
+          {{ section.settings.badge_text }}
+        </span>
+
+        <span class="subscription-coffee-icon"> ☕ </span>
+      </div>
+
+      <div class="subscription-card-content">
+        <p class="subscription-card-label">SUBSCRIBE & SAVE</p>
+
+        <h3>
+          {{ section.settings.card_heading }}
+        </h3>
+
+        <div class="subscription-saving">
+          <span class="saving-value">
+            {{ section.settings.saving_text }}
+          </span>
+
+          <span class="saving-note">
+            {{ section.settings.saving_note }}
+          </span>
+        </div>
+
+        <div class="subscription-frequency">
+          <span class="frequency-label"> DELIVERY FREQUENCY </span>
+
+          <div class="frequency-option">
+            <span>
+              {{ section.settings.frequency }}
+            </span>
+
+            <strong>
+              {{ section.settings.frequency_save }}
+            </strong>
+          </div>
+        </div>
+
+        <div class="subscription-note">
+          <span>✓</span>
+
+          <p>
+            {{ section.settings.card_note }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Coffee Subscription",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "COFFEE, ON YOUR SCHEDULE"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Never run out of"
+    },
+    {
+      "type": "text",
+      "id": "heading_highlight",
+      "label": "Heading highlight",
+      "default": "your favourite coffee."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Make your morning ritual effortless. Subscribe to your favourite coffee and enjoy fresh beans delivered to your door on a schedule that works for you."
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "SAVE 10%"
+    },
+    {
+      "type": "text",
+      "id": "card_heading",
+      "label": "Card heading",
+      "default": "Your Coffee, Delivered"
+    },
+    {
+      "type": "text",
+      "id": "saving_text",
+      "label": "Saving text",
+      "default": "Save 10%"
+    },
+    {
+      "type": "text",
+      "id": "saving_note",
+      "label": "Saving note",
+      "default": "on every delivery"
+    },
+    {
+      "type": "text",
+      "id": "frequency",
+      "label": "Delivery frequency",
+      "default": "Delivery every 4 weeks"
+    },
+    {
+      "type": "text",
+      "id": "frequency_save",
+      "label": "Frequency saving",
+      "default": "10% off"
+    },
+    {
+      "type": "text",
+      "id": "card_note",
+      "label": "Card note",
+      "default": "Automatically delivered to your door"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Explore Coffee Subscriptions"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Benefit",
+          "default": "Save 10% on every delivery"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Coffee Subscription",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "text": "Save 10% on every delivery"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "text": "Fresh coffee delivered every 4 weeks"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "text": "Skip, pause or cancel anytime"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
