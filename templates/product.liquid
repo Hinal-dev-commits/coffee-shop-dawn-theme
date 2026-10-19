@@ -138,7 +138,7 @@
 
       <!-- Hidden input that tells Shopify which specific variant to add to the cart -->
       <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-
+   {% render 'purchase-options', product: product %}
       {%- if product.available -%}
         <button type="submit" class="add-to-cart">ADD TO CART</button>
       {%- else -%}
