@@ -1,46 +1,98 @@
+{{ 'Trust-Banner.css' | asset_url | stylesheet_tag }}
+
+<section class="trust-banner">
+  <div class="trust-item">
+    <div class="trust-icon">✦</div>
+    <div>
+      <h3>
+        {{ section.settings.ethically_sourced | default: 'Ethically Sourced' }}
+      </h3>
+      <p>
+        {{ section.settings.subtxt1 | default: 'Thoughtfully selected beans' }}
+      </p>
+    </div>
+  </div>
+
+  <div class="trust-item">
+    <div class="trust-icon">☕</div>
+    <div>
+      <h3>
+        {{ section.settings.freshly_roasted | default: 'Freshly Roasted' }}
+      </h3>
+      <p>
+        {{ section.settings.subtxt2 | default: 'Roasted with care' }}
+      </p>
+    </div>
+  </div>
+
+  <div class="trust-item">
+    <div class="trust-icon">♡</div>
+    <div>
+      <h3>
+        {{ section.settings.packed_with_care | default: 'Packed With Care' }}
+      </h3>
+      <p>
+        {{ section.settings.subtxt3 | default: 'Freshness in every order' }}
+      </p>
+    </div>
+  </div>
+
+  <div class="trust-item">
+    <div class="trust-icon">→</div>
+    <div>
+      <h3>
+        {{ section.settings.free_shipping | default: 'Free Shipping' }}
+      </h3>
+      <p>
+        {{ section.settings.subtxt4 | default: 'On orders over $50' }}
+      </p>
+    </div>
+  </div>
+</section>
+
 {% schema %}
 {
   "name": "Trust Banner",
   "settings": [
     {
       "type": "text",
-      "id": "EthicallySourced",
-      "label": "enter the heading"
+      "id": "ethically_sourced",
+      "label": "Ethically Sourced heading"
     },
     {
       "type": "text",
-      "id": "FreshlyRoasted",
-      "label": "enter the heading"
+      "id": "freshly_roasted",
+      "label": "Freshly Roasted heading"
     },
     {
       "type": "text",
-      "id": "PackedWithCare",
-      "label": "enter the heading"
+      "id": "packed_with_care",
+      "label": "Packed With Care heading"
     },
     {
       "type": "text",
-      "id": "FreeShipping",
-      "label": "enter the heading"
+      "id": "free_shipping",
+      "label": "Free Shipping heading"
     },
     {
       "type": "text",
       "id": "subtxt1",
-      "label": "enter the text"
+      "label": "Ethically Sourced text"
     },
     {
       "type": "text",
       "id": "subtxt2",
-      "label": "enter the text"
+      "label": "Freshly Roasted text"
     },
     {
       "type": "text",
       "id": "subtxt3",
-      "label": "enter the text"
+      "label": "Packed With Care text"
     },
     {
       "type": "text",
       "id": "subtxt4",
-      "label": "enter the text"
+      "label": "Free Shipping text"
     }
   ],
   "presets": [
