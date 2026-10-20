@@ -1,0 +1,246 @@
+/* =========================
+   BREWING GUIDES
+========================= */
+
+.brewing-guides {
+    padding: 95px 6%;
+    background: #FBF9F5;
+    color: #4B3427;
+}
+
+.guides-header {
+    max-width: 1100px;
+    margin: 0 auto 50px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.guides-eyebrow {
+    margin: 0 0 15px;
+
+    color: #94755F;
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+    letter-spacing: 2.7px;
+}
+
+.guides-header h2 {
+    margin: 0;
+
+    color: #38291F;
+    font-family: Georgia, serif;
+    font-size: clamp(38px, 5vw, 52px);
+    font-weight: 400;
+    line-height: 1.1;
+}
+
+.guides-header h2 em {
+    color: #9A7658;
+    font-weight: 400;
+}
+
+.guides-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+
+    padding-bottom: 5px;
+
+    border-bottom: 1px solid #BCA997;
+
+    color: #4B3427;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.8px;
+    text-decoration: none;
+
+    white-space: nowrap;
+}
+
+.guides-link span {
+    font-size: 15px;
+    transition: transform 0.25s ease;
+}
+
+.guides-link:hover span {
+    transform: translateX(4px);
+}
+
+
+/* =========================
+   GUIDE GRID
+========================= */
+
+.guides-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+}
+
+
+/* =========================
+   GUIDE CARD
+========================= */
+
+.guide-card {
+    background: #F8F4EE;
+    border: 1px solid #E5DACE;
+
+    overflow: hidden;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.guide-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(75, 52, 39, 0.07);
+}
+
+
+/* =========================
+   IMAGE
+========================= */
+
+.guide-image {
+    width: 100%;
+    height: 230px;
+    overflow: hidden;
+}
+
+.guide-image img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    transition: transform 0.5s ease;
+}
+
+.guide-card:hover .guide-image img {
+    transform: scale(1.04);
+}
+
+
+/* =========================
+   CONTENT
+========================= */
+
+.guide-content {
+    padding: 25px 25px 28px;
+}
+
+.guide-category {
+    margin: 0 0 11px;
+
+    color: #94755F;
+
+    font-family: Arial, sans-serif;
+    font-size: 8px;
+    letter-spacing: 2px;
+}
+
+.guide-content h3 {
+    margin: 0 0 12px;
+
+    color: #38291F;
+
+    font-family: Georgia, serif;
+    font-size: 21px;
+    font-weight: 400;
+    line-height: 1.3;
+}
+
+.guide-excerpt {
+    margin: 0 0 22px;
+
+    color: #806C5D;
+
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+.guide-read {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    color: #4B3427;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.7px;
+    text-decoration: none;
+}
+
+.guide-read span {
+    font-size: 14px;
+    transition: transform 0.25s ease;
+}
+
+.guide-read:hover span {
+    transform: translate(3px, -3px);
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 850px) {
+
+    .guides-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .guide-card:last-child {
+        display: none;
+    }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .brewing-guides {
+        padding: 70px 20px;
+    }
+
+    .guides-header {
+        display: block;
+        margin-bottom: 40px;
+    }
+
+    .guides-link {
+        margin-top: 22px;
+    }
+
+    .guides-grid {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+
+    .guide-card:last-child {
+        display: block;
+    }
+
+    .guide-image {
+        height: 220px;
+    }
+
+}
