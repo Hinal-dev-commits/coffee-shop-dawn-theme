@@ -1,19 +1,122 @@
-{% render 'journal' %}
+{% render 'journal', section: section %}
 
 {% schema %}
 {
   "name": "Coffee Journal",
+  "max_blocks": 6,
   "settings": [
     {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
       "type": "text",
-      "id": "guides-eyebrow",
-      "label": "guides-header",
-      "default": "FROM THE COFFEE JOURNAL",
+      "id": "eyebrow",
+      "label": "Small heading",
+      "default": "FROM THE COFFEE JOURNAL"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Brew it"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent",
+      "label": "Heading accent (italic)",
+      "default": "better."
+    },
+    {
+      "type": "header",
+      "content": "Top right link"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Link label",
+      "default": "View all guides"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "guide",
+      "name": "Guide card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "category",
+          "label": "Category",
+          "default": "BREWING GUIDE"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "The Perfect French Press Ratio"
+        },
+        {
+          "type": "textarea",
+          "id": "excerpt",
+          "label": "Excerpt",
+          "default": "A simple guide to getting the right balance of coffee, water, and time for a rich, smooth cup."
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Link label",
+          "default": "Read guide"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
     }
   ],
   "presets": [
     {
-      "name": "Coffee Journal"
+      "name": "Coffee Journal",
+      "blocks": [
+        {
+          "type": "guide",
+          "settings": {
+            "category": "BREWING GUIDE",
+            "title": "The Perfect French Press Ratio",
+            "excerpt": "A simple guide to getting the right balance of coffee, water, and time for a rich, smooth cup.",
+            "link_label": "Read guide"
+          }
+        },
+        {
+          "type": "guide",
+          "settings": {
+            "category": "COFFEE CARE",
+            "title": "How to Store Your Coffee Beans",
+            "excerpt": "Keep your beans fresher for longer with a few simple storage habits that make a difference.",
+            "link_label": "Read guide"
+          }
+        },
+        {
+          "type": "guide",
+          "settings": {
+            "category": "BREWING GUIDE",
+            "title": "A Beginner's Guide to Pour Over",
+            "excerpt": "Learn the basics of pour-over brewing and discover how small details can change your cup.",
+            "link_label": "Read guide"
+          }
+        }
+      ]
     }
   ]
 }
