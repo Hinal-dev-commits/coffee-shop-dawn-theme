@@ -1,0 +1,196 @@
+<style>
+  .search-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 40px;
+  }
+
+  .search-page-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .search-page-eyebrow {
+    margin: 0 0 12px;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #8a7565;
+  }
+
+  .search-page-header h1 {
+    margin: 0;
+    font-size: 42px;
+    font-weight: 500;
+    color: #3f3027;
+  }
+
+  .search-result-count {
+    margin-top: 12px;
+    color: #8a7565;
+    font-size: 14px;
+  }
+
+  .search-results-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+  }
+
+  .search-product-card {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .search-product-image {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #f4eee7;
+  }
+
+  .search-product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .search-product-card:hover .search-product-image img {
+    transform: scale(1.03);
+  }
+
+  .search-product-info {
+    padding-top: 16px;
+  }
+
+  .search-product-info h2 {
+    margin: 0 0 7px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #3f3027;
+  }
+
+  .search-product-info p {
+    margin: 0;
+    font-size: 14px;
+    color: #7c6859;
+  }
+
+  .search-no-results {
+    text-align: center;
+    padding: 80px 20px;
+  }
+
+  .search-no-results h2 {
+    margin: 0 0 12px;
+    color: #3f3027;
+    font-size: 28px;
+  }
+
+  .search-no-results p {
+    margin: 0 0 24px;
+    color: #7c6859;
+  }
+
+  .search-no-results a {
+    display: inline-block;
+    padding: 13px 24px;
+    background: #3f3027;
+    color: #fff;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .search-no-results a:hover {
+    opacity: 0.85;
+  }
+
+  @media (max-width: 900px) {
+    .search-results-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 650px) {
+    .search-page {
+      padding: 50px 20px;
+    }
+
+    .search-page-header h1 {
+      font-size: 32px;
+    }
+
+    .search-results-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+  }
+</style>
+
+<div class="search-page">
+  <div class="search-page-header">
+    {% if search.performed %}
+      <p class="search-page-eyebrow">Search results</p>
+
+      <h1>Results for "{{ search.terms }}"</h1>
+
+      <p class="search-result-count">
+        {{ search.results_count }}
+        {% if search.results_count == 1 %}
+          result
+        {% else %}
+          results
+        {% endif %}
+      </p>
+
+    {% else %}
+      <p class="search-page-eyebrow">Search</p>
+
+      <h1>What are you looking for?</h1>
+    {% endif %}
+  </div>
+
+  {% if search.performed %}
+    {% if search.results_count > 0 %}
+      <div class="search-results-grid">
+        {% for item in search.results %}
+          {% if item.object_type == 'product' %}
+            <a
+              href="{{ item.url }}"
+              class="search-product-card"
+            >
+              {% if item.featured_image %}
+                <div class="search-product-image">
+                  {{
+                    item.featured_image
+                    | image_url: width: 600
+                    | image_tag: loading: 'lazy', alt: item.featured_image.alt
+                  }}
+                </div>
+              {% endif %}
+
+              <div class="search-product-info">
+                <h2>
+                  {{ item.title }}
+                </h2>
+
+                <p>
+                  {{ item.price | money }}
+                </p>
+              </div>
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+    {% else %}
+      <div class="search-no-results">
+        <h2>No results found</h2>
+
+        <p>We couldn't find anything matching "{{ search.terms }}".</p>
+
+        <a href="{{ routes.all_products_collection_url }}"> Browse all coffee </a>
+      </div>
+    {% endif %}
+  {% endif %}
+</div>

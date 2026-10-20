@@ -43,32 +43,56 @@
     </nav>
 
     <!-- Cart icon -->
-    <a href="/cart" class="navbar-cart" aria-label="Shopping cart" data-cart-open>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="22"
-        height="22"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.6"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+    <div>
+      <button
+        type="button"
+        class="navbar-search"
+        aria-label="Open search"
+        data-search-open
       >
-        <path d="M3 3h2l2.4 12.4a2 2 0 0 0 2 1.6h8.8a2 2 0 0 0 2-1.6L22 8H6"/>
-        <circle cx="10" cy="21" r="1"/>
-        <circle cx="19" cy="21" r="1"/>
-      </svg>
-      <span
-        class="cart-badge"
-        data-cart-count
-        {% if cart.item_count == 0 %}
-          hidden
-        {% endif %}
-      >
-        {{- cart.item_count -}}
-      </span>
-    </a>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <circle cx="11" cy="11" r="7"></circle>
+          <line x1="16.5" y1="16.5" x2="21" y2="21"></line>
+        </svg>
+      </button>
+      <a href="/cart" class="navbar-cart" aria-label="Shopping cart" data-cart-open>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M3 3h2l2.4 12.4a2 2 0 0 0 2 1.6h8.8a2 2 0 0 0 2-1.6L22 8H6"/>
+          <circle cx="10" cy="21" r="1"/>
+          <circle cx="19" cy="21" r="1"/>
+        </svg>
+        <span
+          class="cart-badge"
+          data-cart-count
+          {% if cart.item_count == 0 %}
+            hidden
+          {% endif %}
+        >
+          {{- cart.item_count -}}
+        </span>
+      </a>
+    </div>
   </div>
 
   <!-- 2. The Drawer Structure (Mobile) -->
@@ -82,7 +106,83 @@
       {%- endfor -%}
     </nav>
   </div>
+  <div class="search-panel" data-search-panel>
+    <div class="search-panel-inner">
+      <div class="search-panel-header">
+        <span>Search</span>
+
+        <button
+          type="button"
+          class="search-close"
+          aria-label="Close search"
+          data-search-close
+        >
+          ×
+        </button>
+      </div>
+
+      <form
+        action="{{ routes.search_url }}"
+        method="get"
+        class="search-form"
+      >
+        <div class="search-input-wrapper">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="11" cy="11" r="7"></circle>
+            <line x1="16.5" y1="16.5" x2="21" y2="21"></line>
+          </svg>
+
+          <input
+            type="search"
+            name="q"
+            placeholder="Search coffee, beans, accessories..."
+            autocomplete="off"
+            data-search-input
+          >
+        </div>
+      </form>
+    </div>
+  </div>
 
   <!-- Overlay to darken the background when open -->
   <div class="drawer-overlay"></div>
 </header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const searchPanel = document.querySelector('[data-search-panel]');
+    const searchOpen = document.querySelector('[data-search-open]');
+    const searchClose = document.querySelector('[data-search-close]');
+    const searchInput = document.querySelector('[data-search-input]');
+
+    if (!searchPanel || !searchOpen) return;
+
+    searchOpen.addEventListener('click', function () {
+      searchPanel.classList.add('is-open');
+
+      setTimeout(() => {
+        searchInput?.focus();
+      }, 200);
+    });
+
+    searchClose?.addEventListener('click', function () {
+      searchPanel.classList.remove('is-open');
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') {
+        searchPanel.classList.remove('is-open');
+      }
+    });
+  });
+</script>
