@@ -1,77 +1,79 @@
 {{ 'journal.css' | asset_url | stylesheet_tag }}
 
+{%- comment -%}
+  Receives the section object from sections/journal.liquid:
+  {% render 'journal', section: section %}
+{%- endcomment -%}
+
 <section class="brewing-guides">
   <div class="guides-header">
     <div>
-      <p class="guides-eyebrow">FROM THE COFFEE JOURNAL</p>
-      <h2>Brew it <em>better.</em></h2>
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="guides-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2>
+          {{ section.settings.heading }}
+          {%- if section.settings.heading_accent != blank %}
+            <em>{{ section.settings.heading_accent }}</em>
+          {%- endif -%}
+        </h2>
+      {%- endif -%}
     </div>
 
-    <a href="#" class="guides-link"> View all guides <span>→</span> </a>
+    {%- if section.settings.link_label != blank -%}
+      <a href="{{ section.settings.link_url | default: '#' }}" class="guides-link">
+        {{ section.settings.link_label }}
+        <span>→</span>
+      </a>
+    {%- endif -%}
   </div>
 
-  <div class="guides-grid">
-    <article class="guide-card">
-      <div class="guide-image">
-        <img
-          src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80"
-          alt="Freshly brewed coffee"
-        >
-      </div>
+  {%- if section.blocks.size > 0 -%}
+    <div class="guides-grid">
+      {%- for block in section.blocks -%}
+        {%- assign image_alt = block.settings.image.alt | default: block.settings.title -%}
 
-      <div class="guide-content">
-        <p class="guide-category">BREWING GUIDE</p>
+        <article class="guide-card" {{ block.shopify_attributes }}>
+          <div class="guide-image">
+            {%- if block.settings.image != blank -%}
+              {{
+                block.settings.image
+                | image_url: width: 900
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '450, 600, 900',
+                  sizes: '(min-width: 900px) 30vw, 90vw',
+                  alt: image_alt
+              }}
+            {%- else -%}
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </div>
 
-        <h3>The Perfect French Press Ratio</h3>
+          <div class="guide-content">
+            {%- if block.settings.category != blank -%}
+              <p class="guide-category">{{ block.settings.category }}</p>
+            {%- endif -%}
 
-        <p class="guide-excerpt">
-          A simple guide to getting the right balance of coffee, water, and time for a rich, smooth cup.
-        </p>
+            {%- if block.settings.title != blank -%}
+              <h3>{{ block.settings.title }}</h3>
+            {%- endif -%}
 
-        <a href="#" class="guide-read"> Read guide <span>↗</span> </a>
-      </div>
-    </article>
+            {%- if block.settings.excerpt != blank -%}
+              <p class="guide-excerpt">{{ block.settings.excerpt }}</p>
+            {%- endif -%}
 
-    <article class="guide-card">
-      <div class="guide-image">
-        <img
-          src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=900&q=80"
-          alt="Coffee beans"
-        >
-      </div>
-
-      <div class="guide-content">
-        <p class="guide-category">COFFEE CARE</p>
-
-        <h3>How to Store Your Coffee Beans</h3>
-
-        <p class="guide-excerpt">
-          Keep your beans fresher for longer with a few simple storage habits that make a difference.
-        </p>
-
-        <a href="#" class="guide-read"> Read guide <span>↗</span> </a>
-      </div>
-    </article>
-
-    <article class="guide-card">
-      <div class="guide-image">
-        <img
-          src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=900&q=80"
-          alt="Pour over coffee"
-        >
-      </div>
-
-      <div class="guide-content">
-        <p class="guide-category">BREWING GUIDE</p>
-
-        <h3>A Beginner's Guide to Pour Over</h3>
-
-        <p class="guide-excerpt">
-          Learn the basics of pour-over brewing and discover how small details can change your cup.
-        </p>
-
-        <a href="#" class="guide-read"> Read guide <span>↗</span> </a>
-      </div>
-    </article>
-  </div>
+            {%- if block.settings.link_label != blank -%}
+              <a href="{{ block.settings.link | default: '#' }}" class="guide-read">
+                {{ block.settings.link_label }}
+                <span>↗</span>
+              </a>
+            {%- endif -%}
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
 </section>
