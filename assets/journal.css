@@ -1,7 +1,3 @@
-/* =========================
-   BREWING GUIDES
-========================= */
-
 .brewing-guides {
     padding: 95px 6%;
     background: #FBF9F5;
@@ -70,11 +66,6 @@
     transform: translateX(4px);
 }
 
-
-/* =========================
-   GUIDE GRID
-========================= */
-
 .guides-grid {
     max-width: 1100px;
     margin: 0 auto;
@@ -84,11 +75,6 @@
     gap: 28px;
 }
 
-
-/* =========================
-   GUIDE CARD
-========================= */
-
 .guide-card {
     background: #F8F4EE;
     border: 1px solid #E5DACE;
@@ -96,19 +82,13 @@
     overflow: hidden;
 
     transition:
-        transform 0.3s ease,
         box-shadow 0.3s ease;
 }
 
 .guide-card:hover {
-    transform: translateY(-5px);
+    /* transform: translateY(-5px); */
     box-shadow: 0 12px 30px rgba(75, 52, 39, 0.07);
 }
-
-
-/* =========================
-   IMAGE
-========================= */
 
 .guide-image {
     width: 100%;
@@ -130,11 +110,6 @@
 .guide-card:hover .guide-image img {
     transform: scale(1.04);
 }
-
-
-/* =========================
-   CONTENT
-========================= */
 
 .guide-content {
     padding: 25px 25px 28px;
@@ -193,11 +168,6 @@
     transform: translate(3px, -3px);
 }
 
-
-/* =========================
-   TABLET
-========================= */
-
 @media (max-width: 850px) {
 
     .guides-grid {
@@ -209,11 +179,6 @@
     }
 
 }
-
-
-/* =========================
-   MOBILE
-========================= */
 
 @media (max-width: 600px) {
 
