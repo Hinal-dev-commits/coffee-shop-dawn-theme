@@ -1,9 +1,8 @@
-<h1 style="color: red; font-size: 60px;">MY CUSTOM SEARCH PAGE</h1>
 <style>
   .search-page {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 80px 40px;
+    padding: 0px 0px 40px;
   }
 
   .search-page-header {
@@ -131,18 +130,20 @@
 <div class="search-page">
   <div class="search-page-header">
     {% if search.performed %}
-      <p class="search-page-eyebrow">Search results</p>
+      {% comment %} <p class="search-page-eyebrow">Search results</p> {% endcomment %}
 
-      <h1>Results for "{{ search.terms }}"</h1>
+      {% comment %} <h1>Results for "{{ search.terms }}"</h1> {% endcomment %}
 
-      <p class="search-result-count">
-        {{ search.results_count }}
-        {% if search.results_count == 1 %}
-          result
-        {% else %}
-          results
-        {% endif %}
-      </p>
+      {% comment %}
+        <p class="search-result-count">
+          {{ search.results_count }}
+          {% if search.results_count == 1 %}
+            result
+          {% else %}
+            results
+          {% endif %}
+        </p>
+      {% endcomment %}
 
     {% else %}
       <p class="search-page-eyebrow">Search</p>
