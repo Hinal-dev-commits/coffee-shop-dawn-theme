@@ -32,7 +32,7 @@
     margin: 0 0 17px;
 
     color: #94755F;
-    font-family: Arial, sans-serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: 9px;
     letter-spacing: 2.7px;
 }
@@ -57,7 +57,7 @@
     margin: 0 0 30px;
 
     color: #806C5D;
-    font-family: Arial, sans-serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: 13px;
     line-height: 1.85;
 }
@@ -101,7 +101,7 @@
     margin: 0;
 
     color: #5F4A3B;
-    font-family: Arial, sans-serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: 12px;
 }
 
@@ -125,7 +125,7 @@
     background: #4B3427;
     color: #FFFAF4;
 
-    font-family: Arial, sans-serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: 10px;
     letter-spacing: 0.8px;
     text-decoration: none;
@@ -183,7 +183,7 @@
 
     color: #6B5140;
 
-    font-family: Arial, sans-serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: 8px;
     letter-spacing: 1.5px;
 }
@@ -215,7 +215,7 @@
 
     color: #94755F;
 
-    font-family: Arial, sans-serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: 9px;
     letter-spacing: 2px;
 }
@@ -253,7 +253,7 @@
 .saving-note {
     color: #94755F;
 
-    font-family: Arial, sans-serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: 10px;
 }
 
@@ -271,7 +271,7 @@
 
     color: #94755F;
 
-    font-family: Arial, sans-serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: 8px;
     letter-spacing: 1.8px;
 }
@@ -289,7 +289,7 @@
 
     color: #5F4A3B;
 
-    font-family: Arial, sans-serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: 11px;
 }
 
@@ -323,7 +323,7 @@
 
     color: #806C5D;
 
-    font-family: Arial, sans-serif;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: 10px;
 }
 
@@ -344,7 +344,7 @@
     }
 
     .subscription-card {
-        margin: 0 auto;
+        margin: 0 0;
     }
 
 }

@@ -3,7 +3,7 @@
       background: #fbf8f3;
       color: #4b3427;
       padding: 70px 6% 90px;
-      font-family: Arial, sans-serif;
+      font-family: Georgia, 'Times New Roman', serif;
   }
 
   /* HEADER */
@@ -317,7 +317,7 @@
       background: transparent;
       color: #4b3427;
 
-      font-family: Arial, sans-serif;
+      font-family: Georgia, 'Times New Roman', serif;
       font-size: 12px;
 
       text-decoration: none;

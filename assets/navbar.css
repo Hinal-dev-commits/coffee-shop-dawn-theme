@@ -5,6 +5,7 @@
       border-bottom: 1px solid #e8dfd4;
       position: relative;
       z-index: 100;
+      font-family: Georgia, 'Times New Roman', serif;
   }
 
   .navbar-container {
@@ -86,6 +87,11 @@
   .nav-link:hover::after,
   .nav-link.active::after {
       width: 100%;
+  }
+
+  .search-btn {
+      background: none;
+      border: none;
   }
 
   /* Cart */
