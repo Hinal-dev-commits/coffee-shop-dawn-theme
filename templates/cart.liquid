@@ -10,7 +10,12 @@
     {% if cart.item_count > 0 %}
       <section class="cart-items" id="cart-items">
         {% for item in cart.items %}
-          <article class="cart-item" data-price="{{ item.final_price }}" data-key="{{ item.key }}" data-cart-item-key="{{ item.key | escape }}">
+          <article
+            class="cart-item"
+            data-price="{{ item.final_price }}"
+            data-key="{{ item.key }}"
+            data-cart-item-key="{{ item.key | escape }}"
+          >
             <img
               src="{{item.image | image_url: width: 300}}"
               alt="{{ item.title }}"
@@ -65,9 +70,16 @@
 
       <p class="shipping-note">Shipping and applicable taxes are calculated at checkout.</p>
 
-      <a href="/checkout" class="checkout-btn"> PROCEED TO CHECKOUT → </a>
+      {% comment %} <a href="/checkout" class="checkout-btn"> PROCEED TO CHECKOUT → </a> {% endcomment %}
 
-      <a href="" class="continue-shopping"> Continue Shopping </a>
+      {%- form 'cart', cart -%}
+        <button type="submit" name="checkout" class="checkout-btn">PROCEED TO CHECKOUT →</button>
+
+        {%- if additional_checkout_buttons -%}
+          {{ content_for_additional_checkout_buttons }}
+        {%- endif -%}
+      {%- endform -%}
+      <a href="/collections/all" class="continue-shopping"> Continue Shopping </a>
 
       <div class="cart-trust">Secure checkout · Freshly roasted coffee</div>
     </aside>

@@ -113,8 +113,15 @@
 
       <p class="cart-note">{{ note | default: 'Shipping and applicable taxes calculated at checkout.' }}</p>
 
-      <a href="/checkout" class="cart-checkout"> PROCEED TO CHECKOUT <span>→</span> </a>
+      {% comment %} <a href="/checkout" class="cart-checkout"> PROCEED TO CHECKOUT <span>→</span> </a> {% endcomment %}
 
+      {%- form 'cart', cart -%}
+        <button type="submit" name="checkout" class="checkout-btn">PROCEED TO CHECKOUT →</button>
+
+        {%- if additional_checkout_buttons -%}
+          {{ content_for_additional_checkout_buttons }}
+        {%- endif -%}
+      {%- endform -%}
       <a href="/collections/all" class="cart-continue"> Continue Shopping </a>
 
       <p class="cart-secure">Secure checkout · Freshly roasted coffee</p>
