@@ -20,12 +20,27 @@
       </svg>
     </button>
     <!-- Logo -->
-    <a href="/" class="coffee-logo">
-      {%- if settings.logo == blank -%}
-        <span class="logo-icon">✳</span>
-        <span class="logo-text">{{ shop.name }}</span>
-      {% else %}
-        <img src="{{ settings.logo | image_url: width: 120 }}" alt="{{ shop.name }}">
+    {% comment %}
+      <a href="/" class="coffee-logo">
+        {%- if settings.logo == blank -%}
+          <span class="logo-icon">✳</span>
+          <span class="logo-text">{{ shop.name }}</span>
+        {% else %}
+          <img src="{{ settings.logo | image_url: width: 120 }}" alt="{{ shop.name }}">
+        {%- endif -%}
+      </a>
+    {% endcomment %}
+
+    <a href="{{ routes.root_url }}" class="logo">
+      {%- if brand.logo -%}
+        <img
+          src="{{ brand.logo | image_url: width: 300 }}"
+          alt="{{ shop.name | escape }}"
+          width="150"
+          loading="eager"
+        >
+      {%- else -%}
+        <span>{{ shop.name }}</span>
       {%- endif -%}
     </a>
 
