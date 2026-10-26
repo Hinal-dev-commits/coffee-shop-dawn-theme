@@ -30,6 +30,7 @@
         {%- endif -%}
       </a>
     {% endcomment %}
+    {%- assign site_logo = settings.logo | default: brand.logo -%}
     <a href="{{ routes.root_url }}" class="coffee-logo">
       {%- assign site_logo = settings.logo | default: brand.logo -%}
       {%- if site_logo != blank -%}
