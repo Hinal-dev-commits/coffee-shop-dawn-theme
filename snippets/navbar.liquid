@@ -30,17 +30,13 @@
         {%- endif -%}
       </a>
     {% endcomment %}
-
-    <a href="{{ routes.root_url }}" class="logo">
-      {%- if brand.logo -%}
-        <img
-          src="{{ brand.logo | image_url: width: 300 }}"
-          alt="{{ shop.name | escape }}"
-          width="150"
-          loading="eager"
-        >
+    <a href="{{ routes.root_url }}" class="coffee-logo">
+      {%- assign site_logo = settings.logo | default: brand.logo -%}
+      {%- if site_logo != blank -%}
+        <img src="{{ site_logo | image_url: width: 300 }}" alt="{{ shop.name | escape }}" width="150" loading="eager">
       {%- else -%}
-        <span>{{ shop.name }}</span>
+        <span class="logo-icon">✳</span>
+        <span class="logo-text">{{ shop.name }}</span>
       {%- endif -%}
     </a>
 
