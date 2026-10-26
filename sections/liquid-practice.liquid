@@ -27,13 +27,13 @@
   {%- endif -%}
 
   <h3>3. Find a page by handle</h3>
-  {%- assign about = pages['about-us'] -%}
-  {%- if about.title != blank -%}
+  {%- assign about = pages['contact'] -%}
+  {%- if contact.title != blank -%}
     <p>
-      <a href="{{ about.url }}">{{ about.title }}</a>
+      <a href="{{ contact.url }}">{{ contact.title }}</a>
     </p>
   {%- else -%}
-    <p>Page "about-us" not found.</p>
+    <p>Page "contact-us" not found.</p>
   {%- endif -%}
 
   <h3>4. Menu (linklist) by handle</h3>
