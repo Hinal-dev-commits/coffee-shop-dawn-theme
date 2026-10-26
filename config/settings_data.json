@@ -9,7 +9,6 @@
  */
 {
   "current": {
-    "logo": "shopify://shop_images/Brew_Bean_Coffee_Emblem.png",
     "header_nav": "main-menu",
     "sections": {
       "cart-drawer": {
