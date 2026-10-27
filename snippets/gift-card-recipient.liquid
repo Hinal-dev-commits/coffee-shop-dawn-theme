@@ -1,0 +1,43 @@
+{%- comment -%}
+  Recipient fields for gift card products.
+  Usage: place inside {% form 'product' %}, e.g. above the Add to cart button:
+  {% if product.gift_card? %}{% render 'gift-card-recipient' %}{% endif %}
+{%- endcomment -%}
+
+<fieldset class="gift-recipient">
+  <legend>Send as a gift (optional)</legend>
+
+  <label>
+    <input type="checkbox" name="properties[__shopify_send_gift_card_to_recipient]" id="send-to-recipient">
+    Send to someone else
+  </label>
+
+  <div id="recipient-fields" hidden>
+    <p>
+      <label for="recipient-email">Recipient email</label><br>
+      <input type="email" id="recipient-email" name="properties[Recipient email]">
+    </p>
+    <p>
+      <label for="recipient-name">Recipient name</label><br>
+      <input type="text" id="recipient-name" name="properties[Recipient name]">
+    </p>
+    <p>
+      <label for="recipient-message">Message</label><br>
+      <textarea id="recipient-message" name="properties[Message]" rows="3" maxlength="200"></textarea>
+    </p>
+    <p>
+      <label for="recipient-date">Send on</label><br>
+      <input type="date" id="recipient-date" name="properties[Send on]">
+    </p>
+  </div>
+</fieldset>
+
+<script>
+  (function () {
+    var box = document.getElementById('send-to-recipient');
+    var fields = document.getElementById('recipient-fields');
+    box.addEventListener('change', function () {
+      fields.hidden = !box.checked;
+    });
+  })();
+</script>

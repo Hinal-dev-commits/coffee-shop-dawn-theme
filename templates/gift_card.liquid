@@ -3,9 +3,133 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Gift Card</title>
+    <title>
+      Your gift card ·
+      {{ shop.name }}
+    </title>
+    {{ content_for_header }}
+
+    <style>
+      body {
+        margin: 0;
+        background: #faf6f0;
+        color: #3b2a20;
+        font-family: var(--font-body-family, Georgia, serif);
+      }
+      .gc {
+        max-width: 480px;
+        margin: 0 auto;
+        padding: 32px 16px;
+        text-align: center;
+      }
+      .gc-card {
+        background: #4a342a;
+        color: #f5ebdd;
+        border-radius: 16px;
+        padding: 28px 20px;
+      }
+      .gc-card img {
+        max-width: 140px;
+        margin-bottom: 12px;
+      }
+      .gc-balance {
+        font-size: 2.4rem;
+        margin: 8px 0;
+      }
+      .gc-code {
+        font-family: monospace;
+        font-size: 1.3rem;
+        letter-spacing: 2px;
+        background: #f5ebdd;
+        color: #3b2a20;
+        padding: 10px;
+        border-radius: 8px;
+      }
+      .gc-note {
+        font-size: 0.9rem;
+        opacity: 0.8;
+      }
+      .gc-btn {
+        display: inline-block;
+        margin: 8px 4px;
+        padding: 10px 18px;
+        border: 1px solid #4a342a;
+        background: #fff;
+        color: #4a342a;
+        border-radius: 6px;
+        cursor: pointer;
+        text-decoration: none;
+      }
+      .gc-warn {
+        color: #a33;
+        font-weight: bold;
+      }
+      .gc-qr {
+        margin: 16px auto;
+        display: inline-block;
+        background: #fff;
+        padding: 8px;
+      }
+    </style>
   </head>
+
   <body>
-    <h1>Gift Card</h1>
+    <main class="gc">
+      <h1>Your {{ shop.name }} gift card</h1>
+
+      {%- if gift_card.enabled == false -%}
+        <p class="gc-warn">This gift card has been disabled.</p>
+      {%- elsif gift_card.expired -%}
+        <p class="gc-warn">This gift card expired on {{ gift_card.expires_on | date: '%B %d, %Y' }}.</p>
+      {%- endif -%}
+
+      <div class="gc-card">
+        {%- if brand.square_logo != blank -%}
+          <img src="{{ brand.square_logo | image_url: width: 280 }}" alt="{{ shop.name | escape }}" width="140">
+        {%- else -%}
+          <strong>{{ shop.name }}</strong>
+        {%- endif -%}
+
+        <div class="gc-balance">{{ gift_card.balance | money }}</div>
+
+        {%- if gift_card.balance != gift_card.initial_value -%}
+          <p class="gc-note">Original value: {{ gift_card.initial_value | money }}</p>
+        {%- endif -%}
+
+        {%- if gift_card.expires_on and gift_card.expired == false -%}
+          <p class="gc-note">Valid until {{ gift_card.expires_on | date: '%B %d, %Y' }}</p>
+        {%- endif -%}
+      </div>
+
+      <h2>Gift card code</h2>
+      <div class="gc-code" id="gc-code">{{ gift_card.code | format_code }}</div>
+      <button type="button" class="gc-btn" id="gc-copy">Copy code</button>
+
+      <div>
+        <div class="gc-qr" id="gc-qr"></div>
+      </div>
+
+      <p class="gc-note">Enter this code at checkout, or scan the QR code in store.</p>
+
+      <a class="gc-btn" href="{{ shop.url }}">Start shopping</a>
+      <button type="button" class="gc-btn" onclick="window.print()">Print</button>
+      {%- if gift_card.pass_url != blank -%}
+        <a class="gc-btn" href="{{ gift_card.pass_url }}">Add to Apple Wallet</a>
+      {%- endif -%}
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+      new QRCode(document.getElementById('gc-qr'), {
+        text: {{ gift_card.qr_identifier | json }},
+        width: 140,
+        height: 140
+      });
+
+      document.getElementById('gc-copy').addEventListener('click', function () {
+        navigator.clipboard.writeText({{ gift_card.code | json }});
+        this.textContent = 'Copied!';
+      });
+    </script>
   </body>
 </html>
