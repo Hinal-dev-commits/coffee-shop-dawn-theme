@@ -1,72 +1,37 @@
 <section class="liquid-practice page-width">
-  <h2>Liquid practice: Handles</h2>
+  <h2>Liquid practice: discounts</h2>
 
-  <h3>1. handleize filter (turns any text into a handle)</h3>
-  <ul>
-    <li>{{ 'Brew & Bean Gift Card' | handleize }}</li>
-    <li>{{ 'Coffee Beans (250g)' | handleize }}</li>
-    <li>{{ '  Extra   Spaces!!  ' | handleize }}</li>
-  </ul>
-
-  <h3>2. Find a collection by handle</h3>
-  {%- assign featured = collections['coffee-beans'] -%}
-  {%- if featured.title != blank -%}
+  <h3>1. Cart-level discounts</h3>
+  {%- for app in cart.cart_level_discount_applications -%}
     <p>
-      Found: <a href="{{ featured.url }}">{{ featured.title }}</a> ({{ featured.products_count }} products)
-    </p>
-    <ul>
-      {%- for p in featured.products limit: 3 -%}
-        <li>
-          {{ p.title }}
-          <small>handle: {{ p.handle }}</small>
-        </li>
-      {%- endfor -%}
-    </ul>
-  {%- else -%}
-    <p>Collection "coffee-beans" not found. Check the handle in Admin.</p>
-  {%- endif -%}
-
-  <h3>3. Find a page by handle</h3>
-  {%- assign contact = pages['contact'] -%}
-  {%- if contact.title != blank -%}
-    <p>
-      <a href="{{ contact.url }}">{{ contact.title }}</a>
+      Title: {{ app.title -}}
+      <br>
+      Type: {{ app.type -}}
+      <br>
+      Value type: {{ app.value_type -}}
+      <br>
+      Value: {{ app.value -}}
+      <br>
+      Saved: {{ app.total_allocated_amount | money }}
     </p>
   {%- else -%}
-    <p>Page "contact-us" not found.</p>
-  {%- endif -%}
+    <p>No cart-level discount applied.</p>
+  {%- endfor -%}
 
-  <h3>4. Menu (linklist) by handle</h3>
-  {%- if linklists['main-menu'].links.size > 0 -%}
-    <ul>
-      {%- for link in linklists['main-menu'].links -%}
-        <li>
-          <a href="{{ link.url }}">{{ link.title }}</a>
-        </li>
-      {%- endfor -%}
-    </ul>
-  {%- endif -%}
-
-  <h3>5. Handle on the current page</h3>
-  <p>Page type: {{ request.page_type }}</p>
-  {%- if product -%}
-    <p>Current product handle: {{ product.handle }}</p>
-  {%- endif -%}
-  {%- if collection -%}
-    <p>Current collection handle: {{ collection.handle }}</p>
-  {%- endif -%}
-
-  <h3>6. Handles in the cart</h3>
+  <h3>2. Line-level discounts (per item)</h3>
   {%- for item in cart.items -%}
-    <p>{{ item.product.title }} → {{ item.product.handle }}</p>
-  {%- else -%}
-    <p>Cart is empty. Add an item to see this.</p>
+    {%- for alloc in item.line_level_discount_allocations -%}
+      <p>{{ item.product.title }}: {{ alloc.discount_application.title }} → {{ alloc.amount | money }}</p>
+    {%- endfor -%}
   {%- endfor -%}
 
-  <h3>7. Handle as a CSS class</h3>
-  {%- for tag in product.tags -%}
-    <span class="tag tag--{{ tag | handleize }}">{{ tag }}</span>
-  {%- endfor -%}
+  <h3>3. Totals</h3>
+  <p>Original total: {{ cart.original_total_price | money }}</p>
+  <p>Total discount: {{ cart.total_discount | money }}</p>
+  <p>Final total: {{ cart.total_price | money }}</p>
+
+  <h3>4. Raw data (to see every field)</h3>
+  <pre>{{ cart.cart_level_discount_applications | json }}</pre>
 </section>
 
 {% schema %}
