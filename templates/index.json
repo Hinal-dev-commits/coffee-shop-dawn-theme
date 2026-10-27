@@ -107,11 +107,6 @@
         "heading": "Everything you need to <em>know.</em>",
         "subtext": "Have a question about our coffee, shipping, or orders? We've got you covered."
       }
-    },
-    "liquid_practice_apcmRa": {
-      "type": "liquid-practice",
-      "name": "Liquid practice",
-      "settings": {}
     }
   },
   "order": [
@@ -120,7 +115,6 @@
     "featured_collection_KmwWKK",
     "subscription_banner_UVyEmK",
     "testimonials_DyLXBc",
-    "faq_section_CzcrEP",
-    "liquid_practice_apcmRa"
+    "faq_section_CzcrEP"
   ]
 }
