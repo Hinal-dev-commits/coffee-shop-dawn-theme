@@ -11,3 +11,23 @@ html body {
     background: #fff;
     color: #35271f;
 }
+
+body {
+    font-family: var(--font-body-family);
+    font-weight: var(--font-body-weight);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-heading-family);
+    font-weight: var(--font-heading-weight);
+}
+
+strong,
+b {
+    font-weight: var(--font-body-weight-bold);
+}

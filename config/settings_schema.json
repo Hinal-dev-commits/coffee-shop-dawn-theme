@@ -1,5 +1,5 @@
 [
-    {
+  {
     "name": "theme_info",
     "theme_name": "Coffee-shop",
     "theme_version": "1.0.0",
@@ -10,21 +10,42 @@
   {
     "name": "store setting",
     "settings": [
-        {
-            "type": "image_picker",
-            "label": "logo",
-            "id": "logo"
-        }
+      {
+        "type": "image_picker",
+        "label": "logo",
+        "id": "logo"
+      }
     ]
   },
   {
     "name": "Header",
     "settings": [
-        {
-            "type": "link_list",
-            "label": "header",
-            "id": "header_nav"
-        }
+      {
+        "type": "link_list",
+        "label": "header",
+        "id": "header_nav"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Fonts"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_body_font",
+        "label": "Body font",
+        "default": "assistant_n4"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_heading_font",
+        "label": "Heading font",
+        "default": "assistant_n7"
+      }
     ]
   }
 ]
