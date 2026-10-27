@@ -26,26 +26,5 @@
         "id": "header_nav"
       }
     ]
-  },
-  {
-    "name": "Typography",
-    "settings": [
-      {
-        "type": "header",
-        "content": "Fonts"
-      },
-      {
-        "type": "font_picker",
-        "id": "type_body_font",
-        "label": "Body font",
-        "default": "assistant_n4"
-      },
-      {
-        "type": "font_picker",
-        "id": "type_heading_font",
-        "label": "Heading font",
-        "default": "assistant_n7"
-      }
-    ]
   }
 ]
