@@ -1,37 +1,45 @@
 <section class="liquid-practice page-width">
-  <h2>Liquid practice: discounts</h2>
+  <h2>Liquid practice: form</h2>
 
-  <h3>1. Cart-level discounts</h3>
-  {%- for app in cart.cart_level_discount_applications -%}
+  <h3>1. Contact form</h3>
+
+  {%- form 'contact', id: 'PracticeForm', novalidate: 'novalidate' -%}
+
+    {%- if form.posted_successfully? -%}
+      <p style="color: green;"><strong>posted_successfully? = true</strong>. Message sent!</p>
+    {%- endif -%}
+
+    {%- if form.errors -%}
+      <div style="color: red;" role="alert">
+        <strong>form.errors exists:</strong>
+        {{ form.errors | default_errors }}
+      </div>
+    {%- endif -%}
+
     <p>
-      Title: {{ app.title -}}
-      <br>
-      Type: {{ app.type -}}
-      <br>
-      Value type: {{ app.value_type -}}
-      <br>
-      Value: {{ app.value -}}
-      <br>
-      Saved: {{ app.total_allocated_amount | money }}
+      <label for="PracticeForm-name">Name</label><br>
+      <input type="text" id="PracticeForm-name" name="contact[name]" value="{{ form.name }}">
     </p>
-  {%- else -%}
-    <p>No cart-level discount applied.</p>
-  {%- endfor -%}
 
-  <h3>2. Line-level discounts (per item)</h3>
-  {%- for item in cart.items -%}
-    {%- for alloc in item.line_level_discount_allocations -%}
-      <p>{{ item.product.title }}: {{ alloc.discount_application.title }} → {{ alloc.amount | money }}</p>
-    {%- endfor -%}
-  {%- endfor -%}
+    <p>
+      <label for="PracticeForm-email">Email</label><br>
+      <input type="email" id="PracticeForm-email" name="contact[email]" value="{{ form.email }}">
+    </p>
 
-  <h3>3. Totals</h3>
-  <p>Original total: {{ cart.original_total_price | money }}</p>
-  <p>Total discount: {{ cart.total_discount | money }}</p>
-  <p>Final total: {{ cart.total_price | money }}</p>
+    <p>
+      <label for="PracticeForm-body">Message</label><br>
+      <textarea id="PracticeForm-body" name="contact[body]" rows="4">{{ form.body }}</textarea>
+    </p>
 
-  <h3>4. Raw data (to see every field)</h3>
-  <pre>{{ cart.cart_level_discount_applications | json }}</pre>
+    <button type="submit">Send</button>
+
+    <h3>2. Raw form object</h3>
+    <pre>{{ form | json }}</pre>
+
+  {%- endform -%}
+
+  <h3>3. Outside the form tag</h3>
+  <pre>form outside the tag = {{ form | json }}</pre>
 </section>
 
 {% schema %}
