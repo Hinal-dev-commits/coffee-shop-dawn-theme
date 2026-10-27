@@ -11,6 +11,8 @@
   "current": {
     "logo": "shopify://shop_images/Brew_Bean_Coffee_Emblem.png",
     "header_nav": "main-menu",
+    "type_body_font": "anton_n4",
+    "type_heading_font": "bagel_fat_one_n4",
     "sections": {
       "cart-drawer": {
         "type": "cart-drawer",
